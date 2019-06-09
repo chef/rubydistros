@@ -14,18 +14,25 @@ ENV RUBY_DOWNLOAD_SHA256 11a83f85c03d3f0fc9b8a9b6cad1b2674f26c5aaa43ba858d4b0fcc
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
-	\
-	&& buildDeps=' \
-    wget \
-    autoconf \
-    build-essential \
-		bison \
-		dpkg-dev \
-		libgdbm-dev \
-		ruby \
+	&& BaseDeps=' \
+        gcc \
+        autoconf \
+        bison \
+        build-essential \
+        libssl1.0-dev \
+        libyaml-dev \
+        libreadline6-dev \
+        zlib1g-dev \
+        libncurses5-dev \
+        libffi-dev \
+        libgdbm5 \
+        libgdbm-dev \
+        make \
+        wget \
+        curl \
 	' \
 	&& apt-get update \
-	&& apt-get install -y --no-install-recommends $buildDeps \
+	&& apt-get install -y --no-install-recommends $BaseDeps ruby \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
@@ -55,7 +62,7 @@ RUN set -ex \
 	&& make -j "$(nproc)" \
 	&& make install \
 	\
-	&& apt-get purge -y --auto-remove $buildDeps \
+	&& apt-get purge -y --auto-remove ruby \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test

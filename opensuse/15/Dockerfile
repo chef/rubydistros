@@ -33,6 +33,7 @@ RUN set -ex \
     curl \
     xz \
     which \
+    hostname \
 	' \
 	&& zypper install -y $BaseDeps ruby \
 	\

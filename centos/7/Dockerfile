@@ -15,28 +15,24 @@ ENV RUBY_DOWNLOAD_SHA256 11a83f85c03d3f0fc9b8a9b6cad1b2674f26c5aaa43ba858d4b0fcc
 #   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
 	\
-	&& buildDeps=' \
-    make \
+	&& BaseDeps=' \
+    git \
     wget \
-    bison \
-		gdbm-devel \
-    perl \
-    autoconf \
-    cpp \
-    kernel-headers \
-    mpfr \
+    curl \
+    make \
+    gcc \
     gcc-c++ \
-    zlib-devel \
     openssl-devel \
-    sqlite-devel \
     readline-devel \
+    zlib-devel \
+    which \
+    bison \
+    autoconf \
     patch \
     libtool \
     automake \
-    glibc-devel \
-		ruby \
 	' \
-	&& yum install -y $buildDeps \
+	&& yum install -y $BaseDeps ruby\
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
@@ -63,7 +59,7 @@ RUN set -ex \
 	&& make -j "$(nproc)" \
 	&& make install \
 	\
-	&& yum remove -y $buildDeps \
+	&& yum remove -y ruby \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test

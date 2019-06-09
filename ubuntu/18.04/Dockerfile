@@ -14,7 +14,7 @@ ENV RUBY_DOWNLOAD_SHA256 11a83f85c03d3f0fc9b8a9b6cad1b2674f26c5aaa43ba858d4b0fcc
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
-  && mkdir -p /etc/network/interfaces.d
+  && mkdir -p /etc/network/interfaces.d \
 	&& BaseDeps=' \
         git \
         gcc \

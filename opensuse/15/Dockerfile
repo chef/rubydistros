@@ -32,6 +32,7 @@ RUN set -ex \
     automake \
     curl \
     xz \
+    which \
 	' \
 	&& zypper install -y $BaseDeps ruby \
 	\

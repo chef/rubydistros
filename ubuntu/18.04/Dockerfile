@@ -32,6 +32,8 @@ RUN set -ex \
         make \
         wget \
         curl \
+        iproute2 \
+        net-tools \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $BaseDeps ruby \

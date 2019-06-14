@@ -31,6 +31,7 @@ RUN set -ex \
     patch \
     libtool \
     automake \
+    net-tools \
 	' \
 	&& yum install -y $BaseDeps ruby\
 	\

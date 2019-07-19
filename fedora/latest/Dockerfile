@@ -32,6 +32,7 @@ RUN set -ex \
     libtool \
     automake \
     net-tools \
+    hostname \
     xz \
 	' \
 	&& dnf install -y $BaseDeps ruby\

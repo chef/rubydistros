@@ -1,4 +1,4 @@
-FROM opensuse/leap:15
+FROM centos:8
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
@@ -12,32 +12,28 @@ ENV RUBY_VERSION 2.6.5
 ENV RUBY_DOWNLOAD_SHA256 d5d6da717fd48524596f9b78ac5a2eeb9691753da5c06923a6c31190abe01a62
 
 # some of ruby's build scripts are written in ruby
-# we purge system ruby later to make sure our final image uses what we just built
+#   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
 	\
-  && groupadd nobody -g 99 \
-  && useradd nobody -c Nobody -u 99 -g 99 -s /sbin/nologin \
 	&& BaseDeps=' \
-    git-core \
-    gcc \
+    git \
+    wget \
+    curl \
     make \
-    automake \
-    libyaml-devel \
-    ncurses-devel \
+    gcc \
+    gcc-c++ \
+    openssl-devel \
     readline-devel \
     zlib-devel \
-    libopenssl-devel \
-    wget \
+    which \
     bison \
+    autoconf \
     patch \
     libtool \
     automake \
-    curl \
-    xz \
-    which \
-    hostname \
+    net-tools \
 	' \
-	&& zypper install -y $BaseDeps ruby \
+	&& dnf install -y $BaseDeps ruby\
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
@@ -64,7 +60,7 @@ RUN set -ex \
 	&& make -j "$(nproc)" \
 	&& make install \
 	\
-	&& zypper remove -y ruby \
+	&& dnf remove -y ruby \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test

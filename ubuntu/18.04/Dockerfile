@@ -34,6 +34,8 @@ RUN set -ex \
         curl \
         iproute2 \
         net-tools \
+        tzdata \
+        locales \
 	' \
 	&& apt-get update \
 	&& apt-get install -y --no-install-recommends $BaseDeps ruby \

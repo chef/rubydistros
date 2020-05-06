@@ -21,13 +21,13 @@ RUN set -ex \
         autoconf \
         bison \
         build-essential \
-        libssl1.0-dev \
+        libssl1.1 \
         libyaml-dev \
         libreadline6-dev \
         zlib1g-dev \
         libncurses5-dev \
         libffi-dev \
-        libgdbm5 \
+        libgdbm6 \
         libgdbm-dev \
         make \
         wget \

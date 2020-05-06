@@ -19,7 +19,7 @@ RUN set -ex \
   && useradd nobody -c Nobody -u 99 -g 99 -s /sbin/nologin \
 	&& BaseDeps=' \
     git-core \
-    gcc \
+    gcc-c++ \
     make \
     automake \
     libyaml-devel \

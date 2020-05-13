@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM centos:7
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
@@ -7,39 +7,33 @@ RUN mkdir -p /usr/local/etc \
 		echo 'update: --no-document'; \
 	} >> /usr/local/etc/gemrc
 
-ENV RUBY_MAJOR 2.6
-ENV RUBY_VERSION 2.6.6
-ENV RUBY_DOWNLOAD_SHA256 5db187882b7ac34016cd48d7032e197f07e4968f406b0690e20193b9b424841f
+ENV RUBY_MAJOR 2.7
+ENV RUBY_VERSION 2.7.1
+ENV RUBY_DOWNLOAD_SHA256 b224f9844646cc92765df8288a46838511c1cec5b550d8874bd4686a904fcee7
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
-  && mkdir -p /etc/network/interfaces.d \
+	\
 	&& BaseDeps=' \
-        git \
-        gcc \
-        autoconf \
-        bison \
-        build-essential \
-        libssl1.1 \
-        libyaml-dev \
-        libreadline6-dev \
-        zlib1g-dev \
-        libncurses5-dev \
-        libffi-dev \
-        libgdbm6 \
-        libgdbm-dev \
-        make \
-        wget \
-        curl \
-        iproute2 \
-        net-tools \
-        tzdata \
-        locales \
+    git \
+    wget \
+    curl \
+    make \
+    gcc \
+    gcc-c++ \
+    openssl-devel \
+    readline-devel \
+    zlib-devel \
+    which \
+    bison \
+    autoconf \
+    patch \
+    libtool \
+    automake \
+    net-tools \
 	' \
-	&& apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $BaseDeps ruby \
-	&& rm -rf /var/lib/apt/lists/* \
+	&& yum install -y $BaseDeps ruby\
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
@@ -60,15 +54,13 @@ RUN set -ex \
 	&& mv file.c.new file.c \
 	\
 	&& autoconf \
-	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 	&& ./configure \
-		--build="$gnuArch" \
 		--disable-install-doc \
 		--enable-shared \
 	&& make -j "$(nproc)" \
 	&& make install \
 	\
-	&& apt-get purge -y --auto-remove ruby \
+	&& yum remove -y ruby \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test

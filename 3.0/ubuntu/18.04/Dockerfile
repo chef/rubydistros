@@ -8,8 +8,8 @@ RUN mkdir -p /usr/local/etc \
 	} >> /usr/local/etc/gemrc
 
 ENV RUBY_MAJOR 3.0
-ENV RUBY_VERSION 3.0.0-preview2
-ENV RUBY_DOWNLOAD_SHA256 03078e82d4fb55c13837c69e56565fc49c451d11b1ca5e1b075d990d0957f181
+ENV RUBY_VERSION 3.0.0-rc1
+ENV RUBY_DOWNLOAD_SHA256 f1adda082f9291e394d25ed32975abbef90962dc4c8b11130586a0151558e79a
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -41,7 +41,7 @@ RUN set -ex \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $BaseDeps ruby \
 	&& rm -rf /var/lib/apt/lists/* \
 	\
-	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/${RUBY_MAJOR%-rc}/ruby-$RUBY_VERSION.tar.xz" \
+	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-${RUBY_VERSION}.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
 	\
 	&& mkdir -p /usr/src/ruby \

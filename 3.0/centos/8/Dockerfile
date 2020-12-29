@@ -16,22 +16,23 @@ ENV RUBY_DOWNLOAD_SHA256 68bfaeef027b6ccd0032504a68ae69721a70e97d921ff328c0c8836
 RUN set -ex \
 	\
 	&& BaseDeps=' \
-    git \
-    wget \
+    autoconf \
+    automake \
+    bison \
     curl \
-    make \
     gcc \
     gcc-c++ \
-    openssl-devel \
-    readline-devel \
-    zlib-devel \
-    which \
-    bison \
-    autoconf \
-    patch \
+    git \
     libtool \
-    automake \
+    make \
     net-tools \
+    openssl-devel \
+    patch \
+    readline-devel \
+    util-linux \
+    wget \
+    which \
+    zlib-devel \
 	' \
 	&& dnf install -y $BaseDeps ruby\
 	\

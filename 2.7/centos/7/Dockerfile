@@ -16,22 +16,23 @@ ENV RUBY_DOWNLOAD_SHA256 1b95ab193cc8f5b5e59d2686cb3d5dcf1ddf2a86cb6950e0b4bdaae
 RUN set -ex \
 	\
 	&& BaseDeps=' \
-    git \
-    wget \
+    autoconf \
+    automake \
+    bison \
     curl \
-    make \
     gcc \
     gcc-c++ \
-    openssl-devel \
-    readline-devel \
-    zlib-devel \
-    which \
-    bison \
-    autoconf \
-    patch \
+    git \
     libtool \
-    automake \
+    make \
     net-tools \
+    openssl-devel \
+    patch \
+    readline-devel \
+    util-linux \
+    wget \
+    which \
+    zlib-devel \
 	' \
 	&& yum install -y $BaseDeps ruby\
 	\

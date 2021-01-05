@@ -16,6 +16,7 @@ RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).Do
   rmdir /q /s C:\chococache && \
   echo Chocolatey install complete -- closing out layer (this can take awhile)
 
+
 # Install Ruby + Devkit
 RUN powershell -Command \
   $ErrorActionPreference = 'Stop'; \
@@ -24,6 +25,6 @@ RUN powershell -Command \
   (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.0.0-1/rubyinstaller-devkit-3.0.0-1-x64.exe', 'c:\\rubyinstaller-devkit-3.0.0-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
   Start-Process c:\rubyinstaller-devkit-3.0.0-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby27' -Wait ; \
-  Write-Output 'Cleaning up installation'; `\
+  Write-Output 'Cleaning up installation'; \
   Remove-Item c:\rubyinstaller-devkit-3.0.0-1-x64.exe -Force; \
-  Write-Output 'Closing out the layer (this can take awhile)'
+  Write-Output 'Closing out the layer (this can take awhile)';

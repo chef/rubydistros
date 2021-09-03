@@ -1,5 +1,0 @@
-image=centos:
-  image: '{env.IMAGE_REGISTRY}/centos-{env.OS_VERSION}'
-  context: '{env.OS_VERSION}'
-  tags:
-    - '{env.OS_VERSION}'

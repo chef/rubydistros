@@ -6,15 +6,9 @@ slack:
     - chef-infra-notify
 
 pipelines:
-  - docker/build_2_6_centos_7
-  - docker/build_2_6_centos_8
+  - docker/build
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
     actions:
-    - trigger_pipeline:docker/build_2_6_centos_7:
-        only_if_modified:
-          - 2.6/centos/7/*
-    - trigger_pipeline:docker/build_2_6_centos_8:
-        only_if_modified:
-          - 2.6/centos/8/*
+    - trigger_pipeline:docker/build

@@ -1,5 +1,0 @@
-image=ubuntu:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-{env.OS_VERSION}'
-  context: '{env.OS_VERSION}'
-  tags:
-    - '{env.OS_VERSION}'

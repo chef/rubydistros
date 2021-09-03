@@ -1,0 +1,166 @@
+---
+# Centos
+image=2.6-centos-7:
+  image: '{env.IMAGE_REGISTRY}/centos-7'
+  context: 2.6/centos/7
+  tags:
+    - 2.6
+
+image=2.6-centos-8:
+  image: '{env.IMAGE_REGISTRY}/centos-8'
+  context: 2.6/centos/8
+  tags:
+    - 2.6
+
+image=2.7-centos-7:
+  image: '{env.IMAGE_REGISTRY}/centos-7'
+  context: 2.7/centos/7
+  tags:
+    - 2.7
+
+image=2.7-centos-8:
+  image: '{env.IMAGE_REGISTRY}/centos-8'
+  context: 2.7/centos/8
+  tags:
+    - 2.7
+
+image=3.0-centos-7:
+  image: '{env.IMAGE_REGISTRY}/centos-7'
+  context: 3.0/centos/7
+  tags:
+    - 3.0
+    - latest
+
+image=3.0-centos-8:
+  image: '{env.IMAGE_REGISTRY}/centos-8'
+  context: 3.0/centos/8
+  tags:
+    - 3.0
+    - latest
+
+# Fedora
+image=2.6-fedora-22:
+  image: '{env.IMAGE_REGISTRY}/fedora-22'
+  context: 2.6/fedora/22
+  tags:
+    - 2.6
+
+image=2.6-fedora-latest:
+  image: '{env.IMAGE_REGISTRY}/fedora-latest'
+  context: 2.6/fedora/latest
+  tags:
+    - 2.6
+
+image=2.7-fedora-22:
+  image: '{env.IMAGE_REGISTRY}/fedora-22'
+  context: 2.7/fedora/22
+  tags:
+    - 2.7
+
+image=2.7-fedora-latest:
+  image: '{env.IMAGE_REGISTRY}/fedora-latest'
+  context: 2.7/fedora/latest
+  tags:
+    - 2.7
+
+image=3.0-fedora-22:
+  image: '{env.IMAGE_REGISTRY}/fedora-22'
+  context: 3.0/fedora/22
+  tags:
+    - 3.0
+    - latest
+
+image=3.0-fedora-latest:
+  image: '{env.IMAGE_REGISTRY}/fedora-latest'
+  context: 3.0/fedora/latest
+  tags:
+    - 3.0
+    - latest
+
+# Opensuse
+image=2.6-opensuse-15:
+  image: '{env.IMAGE_REGISTRY}/opensuse-15'
+  context: 2.6/opensuse/15
+  tags:
+    - 2.6
+
+image=2.7-opensuse-15:
+  image: '{env.IMAGE_REGISTRY}/opensuse-15'
+  context: 2.7/opensuse/15
+  tags:
+    - 2.7
+
+image=3.0-opensuse-15:
+  image: '{env.IMAGE_REGISTRY}/opensuse-15'
+  context: 3.0/opensuse/15
+  tags:
+    - 3.0
+    - latest
+
+# Ubuntu
+image=2.6-ubuntu-18.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
+  context: 2.6/ubuntu/18.04
+  tags:
+    - 2.6
+
+image=2.6-ubuntu-20.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
+  context: 2.6/ubuntu/20.04
+  tags:
+    - 2.6
+
+image=2.7-ubuntu-18.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
+  context: 2.7/ubuntu/18.04
+  tags:
+    - 2.7
+
+image=2.7-ubuntu-20.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
+  context: 2.7/ubuntu/20.04
+  tags:
+    - 2.7
+
+image=3.0-ubuntu-18.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
+  context: 3.0/ubuntu/18.04
+  tags:
+    - 3.0
+    - latest
+
+image=3.0-ubuntu-20.04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
+  context: 3.0/ubuntu/20.04
+  tags:
+    - 3.0
+    - latest
+
+# Windows
+image=2.6-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 2.6/windows/2019
+  tags:
+    - 2.6
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+
+image=2.7-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 2.7/windows/2019
+  tags:
+    - 2.7
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+
+image=3.0-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 3.0/windows/2019
+  tags:
+    - 3.0
+    - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows

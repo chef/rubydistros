@@ -1,0 +1,5 @@
+image=2.6-opensuse-15:
+  image: '{env.IMAGE_REGISTRY}/opensuse-15'
+  context: "15"
+  tags:
+    - "2.6"

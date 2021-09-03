@@ -1,0 +1,11 @@
+image=2.6-fedora-22:
+  image: '{env.IMAGE_REGISTRY}/fedora-22'
+  context: "22"
+  tags:
+    - "2.6"
+
+image=2.6-fedora-latest:
+  image: '{env.IMAGE_REGISTRY}/fedora-latest'
+  context: "latest"
+  tags:
+    - "2.6"

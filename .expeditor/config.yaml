@@ -1,0 +1,78 @@
+---
+alias: rubydistros
+
+slack:
+  notify_channel:
+    - chef-infra-notify
+
+pipelines:
+  - docker/build_2_6_centos_7
+  - docker/build_2_7_centos_7
+  - docker/build_3_0_centos_7
+  - docker/build_2_6_centos_8
+  - docker/build_2_7_centos_8
+  - docker/build_3_0_centos_8
+  - docker/build_fedora_22
+  - docker/build_fedora_latest
+  - docker/build_opensuse_15
+  - docker/build_ubuntu_18.04
+  - docker/build_ubuntu_20.04
+  - docker/build_windows
+
+subscriptions:
+  - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
+    actions:
+    - trigger_pipeline:docker/build_2_6_centos_7:
+        only_if_modified:
+          - 2.6/centos/7/*
+    - trigger_pipeline:docker/build_2_7_centos_7:
+        only_if_modified:
+          - 2.7/centos/7/*
+    - trigger_pipeline:docker/build_3_0_centos_7:
+        only_if_modified:
+          - 3.0/centos/7/*
+    - trigger_pipeline:docker/build_2_6_centos_8:
+        only_if_modified:
+          - 2.6/centos/8/*
+    - trigger_pipeline:docker/build_2_7_centos_8:
+        only_if_modified:
+          - 2.7/centos/8/*
+    - trigger_pipeline:docker/build_3_0_centos_8:
+        only_if_modified:
+          - 3.0/centos/8/*
+    - trigger_pipeline:docker/build_fedora:
+        only_if_modified:
+          - 2.6/fedora/*
+          - 2.7/fedora/*
+          - 3.0/fedora/*
+        ignore_labels:
+          - "X-skip-all"
+          - "X-docs-only"
+          - "X-skip-docker"
+    - trigger_pipeline:docker/build_opensuse:
+        only_if_modified:
+          - 2.6/opensuse/*
+          - 2.7/opensuse/*
+          - 3.0/opensuse/*
+        ignore_labels:
+          - "X-skip-all"
+          - "X-docs-only"
+          - "X-skip-docker"
+    - trigger_pipeline:docker/build_ubuntu:
+        only_if_modified:
+          - 2.6/ubuntu/*
+          - 2.7/ubuntu/*
+          - 3.0/ubuntu/*
+        ignore_labels:
+          - "X-skip-all"
+          - "X-docs-only"
+          - "X-skip-docker"
+    - trigger_pipeline:docker/build_windows:
+        only_if_modified:
+          - 2.6/windows/*
+          - 2.7/windows/*
+          - 3.0/windows/*
+        ignore_labels:
+          - "X-skip-all"
+          - "X-docs-only"
+          - "X-skip-docker"

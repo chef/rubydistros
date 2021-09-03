@@ -1,0 +1,5 @@
+image=2.6-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: "2019"
+  tags:
+    - "2.6"

@@ -142,12 +142,18 @@ image=2.6-windows-2019:
   context: 2.6/windows/2019
   tags:
     - 2.6
+  annotations:
+    tags:
+      - expeditor:host-os=windows
 
 image=2.7-windows-2019:
   image: '{env.IMAGE_REGISTRY}/windows-2019'
   context: 2.7/windows/2019
   tags:
     - 2.7
+  annotations:
+    tags:
+      - expeditor:host-os=windows
 
 image=3.0-windows-2019:
   image: '{env.IMAGE_REGISTRY}/windows-2019'
@@ -155,3 +161,6 @@ image=3.0-windows-2019:
   tags:
     - 3.0
     - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows

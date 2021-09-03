@@ -1,5 +1,0 @@
-image_registry: rubydistros
-env:
-  OS_VERSION: 7
-
-dobi_file: "2.7/centos/dobi.yaml"

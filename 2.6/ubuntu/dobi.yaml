@@ -1,11 +1,5 @@
-image=2.6-ubuntu-18.04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
-  context: "18.04"
+image=ubuntu:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-{env.OS_VERSION}'
+  context: '{env.OS_VERSION}'
   tags:
-    - "2.6"
-
-image=2.6-ubuntu-20.04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
-  context: "20.04"
-  tags:
-    - "2.6"
+    - '{env.OS_VERSION}'

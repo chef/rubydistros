@@ -110,6 +110,12 @@ image=2_6-ubuntu-20_04:
   tags:
     - '2.6'
 
+image=2_6-ubuntu-22_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
+  context: 2.6/ubuntu/22.04
+  tags:
+    - '2.6'
+
 image=2_7-ubuntu-18_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
   context: 2.7/ubuntu/18.04
@@ -119,6 +125,12 @@ image=2_7-ubuntu-18_04:
 image=2_7-ubuntu-20_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
   context: 2.7/ubuntu/20.04
+  tags:
+    - '2.7'
+
+image=2_7-ubuntu-22_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
+  context: 2.7/ubuntu/22.04
   tags:
     - '2.7'
 
@@ -132,6 +144,13 @@ image=3_0-ubuntu-18_04:
 image=3_0-ubuntu-20_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
   context: 3.0/ubuntu/20.04
+  tags:
+    - '3.0'
+    - latest
+
+image=3_0-ubuntu-22_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
+  context: 3.0/ubuntu/22.04
   tags:
     - '3.0'
     - latest

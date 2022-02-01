@@ -1,4 +1,4 @@
-FROM centos:8
+FROM almalinux:8
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \

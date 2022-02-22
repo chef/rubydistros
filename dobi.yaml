@@ -1,4 +1,30 @@
 ---
+# Alma
+image=2_6-almalinux-8:
+  image: '{env.IMAGE_REGISTRY}/almalinux-8'
+  context: 2.6/almalinux/8
+  tags:
+    - '2.6'
+
+image=2_7-almalinux-8:
+  image: '{env.IMAGE_REGISTRY}/almalinux-8'
+  context: 2.7/almalinux/8
+  tags:
+    - '2.7'
+
+image=3_0-almalinux-8:
+  image: '{env.IMAGE_REGISTRY}/almalinux-8'
+  context: 3.0/almalinux/8
+  tags:
+    - '3.0'
+    - latest
+
+image=3_1-almalinux-8:
+  image: '{env.IMAGE_REGISTRY}/almalinux-8'
+  context: 3.1/almalinux/8
+  tags:
+    - '3.1'
+
 # Centos
 image=2_6-centos-7:
   image: '{env.IMAGE_REGISTRY}/centos-7'

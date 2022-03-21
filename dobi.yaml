@@ -254,6 +254,15 @@ image=3_0-windows-2019:
   context: 3.0/windows/2019
   tags:
     - '3.0'
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+
+image=3_1-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 3.1/windows/2019
+  tags:
+    - '3.1'
     - latest
   annotations:
     tags:

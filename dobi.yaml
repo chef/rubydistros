@@ -195,9 +195,9 @@ image=3_0-windows-2019:
     tags:
       - expeditor:host-os=windows
 
-image=3_0-windows-2022-full:
-  image: '{env.IMAGE_REGISTRY}/windows-2022-full'
-  context: 3.0/windows/2022-full
+image=3_0-windows-2019-full:
+  image: '{env.IMAGE_REGISTRY}/windows-2019-full'
+  context: 3.0/windows/2019-full
   tags:
     - '3.0'
     - latest
@@ -215,9 +215,9 @@ image=3_1-windows-2019:
     tags:
       - expeditor:host-os=windows
 
-image=3_1-windows-2022-full:
-  image: '{env.IMAGE_REGISTRY}/windows-2022-full'
-  context: 3.1/windows/2022-full
+image=3_1-windows-2019-full:
+  image: '{env.IMAGE_REGISTRY}/windows-2019-full'
+  context: 3.1/windows/2019-full
   tags:
     - '3.1'
     - latest

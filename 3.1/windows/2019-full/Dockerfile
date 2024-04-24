@@ -15,13 +15,13 @@ RUN .\ndp48-x86-x64-allos-enu.exe /quiet /AcceptEULA /norestart
 # Install Chocolatey (and essentials)
 RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-RUN C:\ProgramData\Chocolatey\bin\refreshenv && \
-  choco feature enable -n=allowGlobalConfirmation && \
-  choco config set cacheLocation C:\chococache && \
-  choco upgrade chocolatey && \
-  choco install git && \
-  rmdir /q /s C:\chococache && \
-  echo Chocolatey install complete -- closing out layer (this can take awhile)
+RUN C:\ProgramData\Chocolatey\bin\refreshenv
+RUN choco feature enable -n=allowGlobalConfirmation
+RUN choco config set cacheLocation C:\chococache
+RUN choco upgrade chocolatey
+RUN choco install git
+RUN rmdir /q /s C:\chococache
+RUN echo Chocolatey install complete -- closing out layer (this can take awhile)
 
 # Install Ruby + Devkit
 RUN Write-Output 'Downloading Ruby + DevKit'; \

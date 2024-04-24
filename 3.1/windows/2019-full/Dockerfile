@@ -1,14 +1,16 @@
-#FROM mcr.microsoft.com/windows:ltsc2019
-FROM mcr.microsoft.com/windows:1809-KB5035849
+FROM mcr.microsoft.com/windows:ltsc2019
 
 ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
 # When launched by user, default to PowerShell if no other command specified.
-RUN ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+RUN Set-ExecutionPolicy Bypass
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
+RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) && \
   C:\ProgramData\Chocolatey\bin\refreshenv && \
   choco feature enable -n=allowGlobalConfirmation && \
   choco config set cacheLocation C:\chococache && \
@@ -18,9 +20,7 @@ RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).Do
   echo Chocolatey install complete -- closing out layer (this can take awhile)
 
 # Install Ruby + Devkit
-RUN powershell -Command \
-  $ErrorActionPreference = 'Stop'; \
-  Write-Output 'Downloading Ruby + DevKit'; \
+RUN Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
   (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.1-1/rubyinstaller-devkit-3.1.1-1-x64.exe', 'c:\\rubyinstaller-devkit-3.1.1-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \

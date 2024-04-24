@@ -4,7 +4,7 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
 # When launched by user, default to PowerShell if no other command specified.
-CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+RUN ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Install Chocolatey (and essentials)
 RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \

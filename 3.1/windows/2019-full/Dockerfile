@@ -1,4 +1,5 @@
-FROM mcr.microsoft.com/windows:ltsc2019
+#FROM mcr.microsoft.com/windows:ltsc2019
+FROM mcr.microsoft.com/windows:1809-KB5035849
 
 ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true

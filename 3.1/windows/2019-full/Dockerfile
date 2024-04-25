@@ -10,7 +10,8 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 RUN Set-ExecutionPolicy Bypass
 
 RUN Invoke-WebRequest https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/8494001c276a4b96804cde7829c04d7f/ndp48-x86-x64-allos-enu.exe -OutFile c:/ndp48-x86-x64-allos-enu.exe
-RUN Start-Process c:/ndp48-x86-x64-allos-enu.exe -ArgumentList '/quiet /AcceptEULA /norestart' -Wait
+#RUN Start-Process c:/ndp48-x86-x64-allos-enu.exe -ArgumentList '/quiet /AcceptEULA /norestart' -Wait
+RUN c:/ndp48-x86-x64-allos-enu.exe /quiet /AcceptEULA /norestart
 RUN Remove-Item -Force c:/ndp48-x86-x64-allos-enu.exe
 
 # Install Chocolatey (and essentials)

@@ -23,12 +23,16 @@ RUN choco upgrade chocolatey
 RUN choco install git
 RUN Remove-Item -Recurse -Force c:\chococache
 
+ARG RUBY_URL=https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.4-1/rubyinstaller-3.1.4-1-x64.exe
+ARG RUBY_FILE=rubyinstaller-3.1.4-1-x64.exe
+
 # Install Ruby + Devkit
 RUN Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.1-1/rubyinstaller-devkit-3.1.1-1-x64.exe', 'c:\\rubyinstaller-devkit-3.1.1-1-x64.exe'); \
+  (New-Object System.Net.WebClient).DownloadFile('#{RUBY_URL}', 'c:\\#{RUBY_FILE}'); \
   Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:\rubyinstaller-devkit-3.1.1-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby31' -Wait ; \
+  Start-Process c:\#{RUBY_FILE} -ArgumentList '/verysilent /dir=C:\\ruby31' -Wait ; \
   Write-Output 'Cleaning up installation'; \
-  Remove-Item c:\rubyinstaller-devkit-3.1.1-1-x64.exe -Force; \
+  Remove-Item c:\#{RUBY_FILE} -Force; \
   Write-Output 'Closing out the layer (this can take awhile)';
+

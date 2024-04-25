@@ -15,7 +15,6 @@ RUN .\ndp48-x86-x64-allos-enu.exe /quiet /AcceptEULA /norestart
 # Install Chocolatey (and essentials)
 RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 
-#RUN C:\ProgramData\Chocolatey\bin\refreshenv
 RUN Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 RUN choco feature enable -n=allowGlobalConfirmation
 RUN choco config set cacheLocation C:\chococache

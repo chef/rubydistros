@@ -21,7 +21,7 @@ RUN choco feature enable -n=allowGlobalConfirmation
 RUN choco config set cacheLocation C:\chococache
 RUN choco upgrade chocolatey
 RUN choco install git
-RUN rmdir /q /s C:\chococache
+RUN Remove-Item -Recurse -Force c:\chococache
 RUN echo Chocolatey install complete -- closing out layer (this can take awhile)
 
 # Install Ruby + Devkit

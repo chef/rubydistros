@@ -29,10 +29,10 @@ ARG RUBY_FILE=rubyinstaller-3.1.4-1-x64.exe
 # Install Ruby + Devkit
 RUN Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-  (New-Object System.Net.WebClient).DownloadFile("$env:RUBY_URL", "c:/$env:RUBY_FILE"); \
-  Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:/$env:RUBY_FILE -ArgumentList '/verysilent /dir=C:/ruby31' -Wait ; \
-  Write-Output 'Cleaning up installation'; \
-  Remove-Item c:/$env:RUBY_FILE -Force; \
-  Write-Output 'Closing out the layer (this can take awhile)';
+  (New-Object System.Net.WebClient).DownloadFile(\"$env:RUBY_URL\", \"c:/$env:RUBY_FILE\")
+RUN Write-Output 'Installing Ruby + DevKit'
+RUN Start-Process c:/$env:RUBY_FILE -ArgumentList '/verysilent /dir=C:/ruby31' -Wait
+RUN Write-Output 'Cleaning up installation'
+RUN Remove-Item c:/$env:RUBY_FILE -Force
+RUN Write-Output 'Closing out the layer (this can take awhile)'
 

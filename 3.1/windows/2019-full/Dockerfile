@@ -22,7 +22,6 @@ RUN choco config set cacheLocation C:\chococache
 RUN choco upgrade chocolatey
 RUN choco install git
 RUN Remove-Item -Recurse -Force c:\chococache
-RUN echo Chocolatey install complete -- closing out layer (this can take awhile)
 
 # Install Ruby + Devkit
 RUN Write-Output 'Downloading Ruby + DevKit'; \

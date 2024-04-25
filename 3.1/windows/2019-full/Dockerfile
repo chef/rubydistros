@@ -31,7 +31,7 @@ RUN Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
   (New-Object System.Net.WebClient).DownloadFile(\"$env:RUBY_URL\", \"c:/$env:RUBY_FILE\")
 RUN Write-Output 'Installing Ruby + DevKit'
-RUN Start-Process c:/$env:RUBY_FILE -ArgumentList '/verysilent /dir=C:/ruby31' -Wait
+RUN Start-Process c:/$env:RUBY_FILE -ArgumentList '/allusers /verysilent /dir=C:/ruby31' -Wait
 RUN Write-Output 'Cleaning up installation'
 RUN Remove-Item c:/$env:RUBY_FILE -Force
 RUN Write-Output 'Closing out the layer (this can take awhile)'

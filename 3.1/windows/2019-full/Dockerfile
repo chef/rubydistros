@@ -12,7 +12,7 @@ RUN Set-ExecutionPolicy Bypass
 
 ENV chocolateyVersion="1.4.0"
 # Install Chocolatey (and essentials)
-RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 RUN Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 RUN choco feature enable -n=allowGlobalConfirmation

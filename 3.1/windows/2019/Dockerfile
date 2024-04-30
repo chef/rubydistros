@@ -9,7 +9,7 @@ CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 ENV chocolatelyVersion="1.4.0"
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
+RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && \
   C:\ProgramData\Chocolatey\bin\refreshenv && \
   choco feature enable -n=allowGlobalConfirmation && \
   choco config set cacheLocation C:\chococache && \

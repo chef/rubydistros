@@ -9,7 +9,7 @@ SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPref
 
 RUN Set-ExecutionPolicy Bypass
 
-ENV chocolatelyVersion="1.4.0"
+ENV chocolateyVersion="1.4.0"
 # Install Chocolatey (and essentials)
 RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 

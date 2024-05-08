@@ -6,7 +6,7 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 # When launched by user, default to PowerShell if no other command specified.
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
-ENV chocolatelyVersion="1.4.0"
+ENV chocolateyVersion="1.4.0"
 
 # Install Chocolatey (and essentials)
 RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))" && \

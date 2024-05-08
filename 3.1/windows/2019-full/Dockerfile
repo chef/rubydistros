@@ -17,7 +17,6 @@ RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https:/
 RUN Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
 RUN choco feature enable -n=allowGlobalConfirmation
 RUN choco config set cacheLocation C:\chococache
-#RUN choco upgrade chocolatey
 RUN choco install git
 RUN Remove-Item -Recurse -Force c:\chococache
 

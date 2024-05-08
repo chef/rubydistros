@@ -15,9 +15,9 @@ ENV chocolateyVersion="1.4.0"
 RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 RUN Import-Module $env:ChocolateyInstall\helpers\chocolateyProfile.psm1
-RUN choco feature enable -n=allowGlobalConfirmation
-RUN choco config set cacheLocation C:\chococache
-RUN choco upgrade chocolatey
+#RUN choco feature enable -n=allowGlobalConfirmation
+#RUN choco config set cacheLocation C:\chococache
+#RUN choco upgrade chocolatey
 RUN choco install git
 RUN Remove-Item -Recurse -Force c:\chococache
 

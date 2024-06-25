@@ -2,7 +2,7 @@ steps:
 - id: build-on-windows-2019-server
   label: ":docker::windows: build-2019"
   commands:
-    - "docker build . -f 3.3/windows/2019/Dockerfile
+    - "docker build . -f 3.3/windows/2019/Dockerfile"
   agents:
     queue: docker-windows-2022
   plugins:

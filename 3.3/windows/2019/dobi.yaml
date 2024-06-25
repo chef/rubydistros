@@ -4,7 +4,7 @@ steps:
   commands:
     - "docker build . -f 3.3/windows/2019/Dockerfile"
   agents:
-    queue: docker-windows-2022
+    queue: docker-windows-2019
   plugins:
     - docker-login#v2.1.0:
         username: expeditor

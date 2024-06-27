@@ -8,7 +8,7 @@ CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Download and install .NET Framework 4.8
 ADD https://download.visualstudio.microsoft.com/download/pr/2d6bb6b2-226a-4baa-bdec-798822606ff1/8494001c276a4b96804cde7829c04d7f/ndp48-x86-x64-allos-enu.exe .
-RUN ./ndp48-x86-x64-allos-enu.exe /quiet /norestart
+RUN ndp48-installer.exe /quiet /norestart
 
 # Install Chocolatey (and essentials)
 RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \

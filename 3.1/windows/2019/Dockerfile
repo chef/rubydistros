@@ -6,6 +6,11 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 # When launched by user, default to PowerShell if no other command specified.
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
+# Download and install .NET Framework 4.8
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+ADD http://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
+RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
+
 # Install Chocolatey (and essentials)
 RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
   C:\ProgramData\Chocolatey\bin\refreshenv && \

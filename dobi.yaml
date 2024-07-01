@@ -266,5 +266,4 @@ image=3_1-windows-2019:
     - latest
   annotations:
     tags:
-      - expeditor:host-os=windows
-      
+      - expeditor:host-os=windows      

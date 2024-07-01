@@ -1,12 +1,12 @@
-steps:
-  - id: build-on-windows-2019-server
-    label: ":docker::windows: build-2019"
-    commands:
-      - "docker build . -f 3.3/windows/2019/Dockerfile -t windows-2019:3.3"
-      - "docker tag windows-2019:3.3 docker.io/rubydistros/windows:3.3"
-      - "docker push docker.io/rubydistros/windows:3.3"
-    agents:
-      queue: docker-windows-2019
-    plugins:
-      - docker-login#v2.1.0:
-          username: expeditor
+image=3_3-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 3.3/windows/2019
+  tags:
+    - '3.3'
+    - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+  plugins:
+    - docker-login#v2.1.0:
+        username: expeditor

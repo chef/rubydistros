@@ -7,16 +7,14 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Install Chocolatey (and essentials)
-ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1
-RUN powershell -File C:\chocolatey_install.ps1
-RUN C:\ProgramData\Chocolatey\bin\refreshenv && \
-    choco feature enable -n=allowGlobalConfirmation &&  \
-    choco config set cacheLocation C:\chococache &&  \
-    choco upgrade chocolatey &&  \
-    choco install git &&  \
-    rmdir /q /s C:\chococache &&  \
-    del C:\chocolatey_install.ps1 &&  \
-    echo "Chocolatey install complete -- closing out layer"
+RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
+  C:\ProgramData\Chocolatey\bin\refreshenv && \
+  choco feature enable -n=allowGlobalConfirmation && \
+  choco config set cacheLocation C:\chococache && \
+  choco upgrade chocolatey && \
+  choco install git && \
+  rmdir /q /s C:\chococache && \
+  echo Chocolatey install complete -- closing out layer (this can take awhile)
 
 # Install Ruby + Devkit
 RUN powershell -Command \

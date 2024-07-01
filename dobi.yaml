@@ -273,10 +273,7 @@ image=3_3-windows-2019:
   context: 3.3/windows/2019
   tags:
     - '3.3'
-    - latest
-  auth:
-    username: buildkite
-    password-env: DOCKER_LOGIN_ARTIFACTORY_PASSWORD  
+    - latest  
   annotations:
     tags:
       - expeditor:host-os=windows

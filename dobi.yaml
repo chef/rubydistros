@@ -277,3 +277,6 @@ image=3_3-windows-2019:
   annotations:
     tags:
       - expeditor:host-os=windows
+  plugins:
+    - docker-login#v2.1.0:
+        username: expeditor    

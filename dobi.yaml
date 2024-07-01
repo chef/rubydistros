@@ -266,4 +266,19 @@ image=3_1-windows-2019:
     - latest
   annotations:
     tags:
-      - expeditor:host-os=windows  
+      - expeditor:host-os=windows
+
+image=3_3-windows-2019:
+  image: '{env.IMAGE_REGISTRY}/windows-2019'
+  context: 3.3/windows/2019
+  tags:
+    - '3.3'
+    - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+  plugins:
+    - name: docker-login
+      version: v2.1.0
+      config:
+        username: expeditor      

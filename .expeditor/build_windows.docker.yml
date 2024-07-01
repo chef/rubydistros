@@ -1,5 +1,3 @@
-image_registry: rubydistros
-
 steps:
 - id: build-and-push-on-windows-2019-server-dockerhub
   label: ":docker::windows: build-and-push-dockerhub"

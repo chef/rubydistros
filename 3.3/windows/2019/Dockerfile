@@ -12,14 +12,17 @@ ADD http://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allo
 RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
-RUN @powershell Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) ; \
-  C:\ProgramData\Chocolatey\bin\refreshenv ; \
-  choco feature enable -n=allowGlobalConfirmation ; \
-  choco config set cacheLocation C:\chococache ; \
-  choco upgrade chocolatey ; \
-  choco install git ; \
-  rmdir /q /s C:\chococache ; \
-  echo Chocolatey install complete -- closing out layer (this can take awhile)
+# Install Chocolatey (and essentials)
+ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1
+RUN powershell -File C:\chocolatey_install.ps1
+RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
+  choco feature enable -n=allowGlobalConfirmation -and \
+  choco config set cacheLocation C:\chococache -and \
+  choco upgrade chocolatey -and \
+  choco install git -and \
+  rmdir /q /s C:\chococache -and \
+  del C:\chocolatey_install.ps1 -and \
+  echo "Chocolatey install complete -- closing out layer"
 
 # Install Ruby + Devkit
 RUN powershell -Command \

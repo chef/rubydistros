@@ -13,8 +13,8 @@ steps:
   label: ":docker::windows: build-and-push-dockerhub"
   commands:
     - "docker build . -f 3.3/windows/2019/Dockerfile -t windows-2019:3.3"
-    - "docker tag windows-2019:3.3 docker.io/rubydistros/windows:3.3"
-    - "docker push docker.io/rubydistros/windows:3.3"
+    - "docker tag windows-2019:3.3 docker.io/rubydistros/windows-2019:3.3"
+    - "docker push docker.io/rubydistros/windows-2019:3.3"
   agents:
     queue: docker-windows-2019
   plugins:

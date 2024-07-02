@@ -14,8 +14,5 @@ subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
     actions:
     - trigger_pipeline:docker/build
-    - trigger_pipeline:windows/build
-    only_if_modified:
-      - 3.3/windows/2019/Dockerfile
 
     

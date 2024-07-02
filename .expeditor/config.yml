@@ -7,8 +7,8 @@ slack:
 
 pipelines:
   - docker/build
-  - docker/build_windows:
-      definition: .expeditor/build_windows.docker.yml
+  - build-windows:
+      definition: .expeditor/build-windows-docker.yml
 
 subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*

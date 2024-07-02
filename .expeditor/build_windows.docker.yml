@@ -1,3 +1,13 @@
+expeditor:
+  defaults:
+    buildkite:
+      timeout_in_minutes: 90
+      retry:
+        automatic:
+          limit: 1
+env:
+  VERSION: 1.1.16
+
 steps:
 - id: build-and-push-on-windows-2019-server-dockerhub
   label: ":docker::windows: build-and-push-dockerhub"
@@ -10,3 +20,5 @@ steps:
   plugins:
     - docker-login#v2.1.0:
         username: expeditor
+
+        

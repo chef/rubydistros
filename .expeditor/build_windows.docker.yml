@@ -6,7 +6,7 @@ steps:
     - "docker tag windows-2019:3.3 docker.io/rubydistros/windows:3.3"
     - "docker push docker.io/rubydistros/windows:3.3"
   agents:
-    queue: docker-windows-2019
+    queue: windows-2019
   plugins:
     - docker-login#v2.1.0:
         username: expeditor

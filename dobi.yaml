@@ -267,3 +267,16 @@ image=3_1-windows-2019:
   annotations:
     tags:
       - expeditor:host-os=windows
+
+steps:
+  - id: build-and-push-on-windows-2019-server-dockerhub
+    label: ":docker::windows: build-and-push-dockerhub"
+    commands:
+      - "docker build . -f 3.3/windows/2019/Dockerfile -t windows-2019:3.3"
+      - "docker tag windows-2019:3.3 docker.io/rubydistros/windows:3.3"
+      - "docker push docker.io/rubydistros/windows:3.3"
+    agents:
+      queue: docker-windows-2019
+    plugins:
+      - docker-login#v2.1.0:
+          username: expeditor

@@ -19,8 +19,17 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco config set cacheLocation C:\chococache -and \
   choco upgrade chocolatey -and \
   choco install git -and \
+  choco install ruby -y -and \
+  choco install bundler -y -and \
   rmdir /q /s C:\chococache -and \
   echo "Chocolatey install complete -- closing out layer"
+  # Ensure Ruby and Bundler are available in the PATH
+RUN setx PATH "%PATH%;C:\\tools\\ruby27\\bin"
+# Reopen a new shell to pick up the new PATH
+SHELL ["cmd", "/S", "/C"]
+# Verify installations
+RUN ruby -v
+RUN bundler -v 
 
 # Install Ruby + Devkit
 RUN powershell -Command \

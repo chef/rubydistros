@@ -26,10 +26,6 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
 ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"  
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]
-# Verify installations
-RUN ruby -v
-RUN bundler -v 
-
 # Install Ruby + Devkit
 RUN powershell -Command \
     $ErrorActionPreference = 'Stop'; \

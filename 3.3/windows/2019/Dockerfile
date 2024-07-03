@@ -37,6 +37,10 @@ RUN powershell -Command \
     [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\\ruby33\\bin', [EnvironmentVariableTarget]::Machine)
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]
+# Initialize and install Ruby DevKit
+RUN cd C:\ruby33 -and ruby dk.rb init -and ruby dk.rb install
+# Run devkitvars.bat
+RUN C:\ruby33\devkitvars.bat
 # Install Bundler
 RUN gem install bundler
 # Verify installation

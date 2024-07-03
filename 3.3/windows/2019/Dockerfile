@@ -33,8 +33,7 @@ RUN powershell -Command \
     Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
     Write-Output 'Cleaning up installation'; \
     #Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-    Write-Output 'Closing out the layer (this can take awhile)'; \
-    dir C:\\Ruby33; \
+    Write-Output 'Closing out the layer (this can take awhile)';
 RUN [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\\ruby33\\bin', [EnvironmentVariableTarget]::Machine)
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]

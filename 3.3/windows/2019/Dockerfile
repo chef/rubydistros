@@ -27,7 +27,7 @@ ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]
 # Install Ruby + Devkit
-RUN powershell -Command \
+RUN cmd.exe /c powershell -Command \
     $ErrorActionPreference = 'Stop'; \
     Write-Output 'Downloading Ruby + DevKit'; \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \

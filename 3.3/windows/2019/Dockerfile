@@ -33,12 +33,17 @@ RUN powershell -Command \
     Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
     Write-Output 'Cleaning up installation'; \
     Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-    Write-Output 'Closing out the layer (this can take awhile)';
+    Write-Output 'Closing out the layer (this can take awhile)'; \
+    dir C:\\Ruby33; \
 RUN [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\\ruby33\\bin', [EnvironmentVariableTarget]::Machine)
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]
-# Run devkitvars.bat
-RUN C:\ruby33\devkitvars.bat    
+# Initialize and install Ruby DevKit
+RUN cd C:\\Ruby33 -and ruby dk.rb init -and ruby dk.rb install  
+# Run devkitvars.bat to set environment variables
+RUN C:\\Ruby33\\devkitvars.bat
+# Reopen a new shell again to ensure all variables are set
+SHELL ["cmd", "/S", "/C"] 
 # Install Bundler
 RUN gem install bundler
 # Verify installation

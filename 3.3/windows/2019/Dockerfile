@@ -23,8 +23,6 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   del C:\chocolatey_install.ps1 -and \
   echo "Chocolatey install complete -- closing out layer"
 
-RUN gem install bundler  
-
 # Install Ruby + Devkit
 RUN powershell -Command \
     $ErrorActionPreference = 'Stop'; \
@@ -35,4 +33,12 @@ RUN powershell -Command \
     Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
     Write-Output 'Cleaning up installation'; \
     Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-    Write-Output 'Closing out the layer (this can take awhile)';  
+    Write-Output 'Closing out the layer (this can take awhile)'; \
+    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\\ruby33\\bin', [EnvironmentVariableTarget]::Machine)
+# Reopen a new shell to pick up the new PATH
+SHELL ["cmd", "/S", "/C"]
+# Install Bundler
+RUN gem install bundler
+# Verify installation
+RUN ruby -v
+RUN bundler -v

@@ -23,8 +23,6 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco install bundler -y -and \
   rmdir /q /s C:\chococache -and \
   echo "Chocolatey install complete -- closing out layer"
-  # Ensure Ruby and Bundler are available in the PATH
-RUN setx PATH "%PATH%;C:\\tools\\ruby27\\bin"
 # Reopen a new shell to pick up the new PATH
 SHELL ["cmd", "/S", "/C"]
 # Verify installations
@@ -42,3 +40,4 @@ RUN powershell -Command \
     Write-Output 'Cleaning up installation'; \
     Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
     Write-Output 'Closing out the layer (this can take awhile)';
+ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"    

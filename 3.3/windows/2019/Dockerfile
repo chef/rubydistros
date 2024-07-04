@@ -27,7 +27,7 @@ RUN cmd.exe /c choco install ruby -y
 #RUN cmd.exe /c choco install bundler -y
 
 # Set the PATH environment variable to include Ruby's bin directory
-ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"  
+#ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"  
 
 # Install Ruby + Devkit
 RUN powershell -Command \

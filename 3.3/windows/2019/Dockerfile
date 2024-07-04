@@ -7,9 +7,9 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Download and install .NET Framework 4.8
-#FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
-# ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
-# RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
+RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
 ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1

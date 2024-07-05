@@ -39,6 +39,6 @@ RUN powershell -Command \
     Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
     Write-Output 'Cleaning up installation'; \
     Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-    Write-Output 'Closing out the layer (this can take awhile)';
-RUN gem install bundler    
+    Write-Output 'Closing out the layer (this can take awhile)'; \
+    gem update --system         
     

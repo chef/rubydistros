@@ -23,7 +23,7 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   echo "Chocolatey install complete -- closing out layer"
 
 # Install Ruby and Bundler using Chocolatey
-RUN cmd.exe /c choco install ruby -y
+#RUN cmd.exe /c choco install ruby -y
 #RUN cmd.exe /c choco install bundler -y
 
 # Set the PATH environment variable to include Ruby's bin directory
@@ -31,7 +31,7 @@ RUN cmd.exe /c choco install ruby -y
 
 # Install Ruby + Devkit
 RUN powershell -Command \
-    $ErrorActionPreference = 'Stop'; \
+    $ErrorActionPreference = "Stop"; \
     Write-Output 'Downloading Ruby + DevKit'; \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.2-1/rubyinstaller-devkit-3.3.2-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.2-1-x64.exe'); \

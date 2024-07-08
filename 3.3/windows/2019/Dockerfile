@@ -31,13 +31,13 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
 
 # Install Ruby + Devkit
 RUN powershell -Command \
-    $ErrorActionPreference = "Stop"; \
-    Write-Output 'Downloading Ruby + DevKit'; \
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-    (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.2-1/rubyinstaller-devkit-3.3.2-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.2-1-x64.exe'); \
-    Write-Output 'Installing Ruby + DevKit'; \
-    Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
-    Write-Output 'Cleaning up installation'; \
-    Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-    Write-Output 'Closing out the layer (this can take awhile)';        
+    #$ErrorActionPreference = "Stop"; \
+  Write-Output 'Downloading Ruby + DevKit'; \
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.2-1/rubyinstaller-devkit-3.3.2-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.2-1-x64.exe'); \
+  Write-Output 'Installing Ruby + DevKit'; \
+  Start-Process c:\rubyinstaller-devkit-3.3.2-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
+  Write-Output 'Cleaning up installation'; \
+  Remove-Item c:\rubyinstaller-devkit-3.3.2-1-x64.exe -Force -ErrorAction SilentlyContinue; \
+  Write-Output 'Closing out the layer (this can take awhile)';        
     

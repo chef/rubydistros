@@ -4,7 +4,7 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
 # When launched by user, default to PowerShell if no other command specified.
-RUN ExecutionPolicy Bypass -Scope Process -Force
+#RUN ExecutionPolicy Bypass -Scope Process -Force
 
 FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe

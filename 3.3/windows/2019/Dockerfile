@@ -13,7 +13,7 @@ RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
 RUN powershell -Command "Invoke-WebRequest -Uri 'https://chocolatey.org/install.ps1' -OutFile 'install.ps1'"\
-RUN powershell -ExecutionPolicy Bypass -File install.ps1 -and \
+  powershell -ExecutionPolicy Bypass -File install.ps1 -and \
   C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \
   choco config set cacheLocation C:\chococache -and \

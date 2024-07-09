@@ -35,7 +35,7 @@ RUN powershell -Command \
   $ErrorActionPreference = 'Stop'; \
   Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.1.1-1-x64.exe', 'c:\\rubyinstaller-devkit-3.1.1-1-x64.exe'); \
+  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.3.3-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.3-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
   Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
   Write-Output 'Cleaning up installation'; \

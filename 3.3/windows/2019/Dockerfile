@@ -12,35 +12,24 @@ ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-all
 RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command "Start-Process powershell -ArgumentList 'Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile install.ps1'" \
-  powershell -ExecutionPolicy Bypass -File install.ps1 -and \
+RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" -and \
   C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \
   choco config set cacheLocation C:\chococache -and \
   choco upgrade chocolatey -and \
   choco install git -and \
   rmdir /q /s C:\chococache -and \
-  echo "Chocolatey install complete -- closing out layer"
-
-# Install Ruby and Bundler using Chocolatey
-#RUN cmd.exe /c choco install ruby -y
-#RUN cmd.exe /c choco install bundler -y
-
-# Set the PATH environment variable to include Ruby's bin directory
-#ENV PATH="C:\\tools\\ruby33\\bin;${PATH}"  
+  echo Chocolatey install complete -- closing out layer (this can take awhile) 
 
 # Install Ruby + Devkit
-# Download, install, and clean up Ruby + DevKit
 RUN powershell -Command \
-  $ErrorActionPreference = 'Stop'; \
+  $ErrorActionPreference = "Stop"; \
   Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
   (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.3.3-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.3-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe'/verysilent /dir=C:\\ruby33' -Wait ; \
+  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -Wait ; \
   Write-Output 'Cleaning up installation'; \
   Remove-Item c:\rubyinstaller-devkit-3.3.3-1-x64.exe -Force -ErrorAction SilentlyContinue; \
-  Write-Output 'Closing out the layer (this can take awhile)';
-  
-  
+  Write-Output 'Closing out the layer (this can take awhile)';        
     

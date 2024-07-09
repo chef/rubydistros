@@ -7,14 +7,12 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Download and install .NET Framework 4.8
-FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
-ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
-RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
+# FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+# ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
+# RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
-FROM chocolatey/choco:latest-windows
-
+FROM chocolatey/choco:latest-windows#
 RUN choco install au --yes
-
 CMD PowerShell.exe
 
 # Install Ruby and Bundler using Chocolatey

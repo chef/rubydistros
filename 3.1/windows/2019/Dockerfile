@@ -18,7 +18,7 @@ RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).Do
   choco upgrade chocolatey -and \
   choco install git -and \
   rmdir /q /s C:\chococache -and \
-  echo Chocolatey install complete -- closing out layer (this can take awhile)
+  echo Chocolatey install complete -- closing out layer
 
 # Install Ruby + Devkit
 RUN powershell -Command \

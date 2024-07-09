@@ -4,15 +4,14 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
 # When launched by user, default to PowerShell if no other command specified.
-ENTRYPOINT ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
+RUN Set-ExecutionPolicy Bypass -Scope Process -Force
 
 FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
 ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
 RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command  -and \
-  Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -and \
+RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')) -and \
   C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \
   choco config set cacheLocation C:\chococache -and \

@@ -12,15 +12,17 @@ ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-all
 RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
-RUN C:\ProgramData\Chocolatey\bin\refreshenv
-RUN choco feature enable -n=allowGlobalConfirmation
-RUN choco config set cacheLocation C:\chococache
-RUN choco upgrade chocolatey
-RUN choco install git -and
-RUN rmdir /q /s C:\chococache -and
-RUN Write-Output 'Chocolatey install complete -- closing out layer (this can take awhile)'
-
+ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1
+RUN powershell -File C:\chocolatey_install.ps1
+RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
+  choco feature enable -n=allowGlobalConfirmation -and \
+  choco config set cacheLocation C:\chococache -and \
+  choco upgrade chocolatey -and \
+  choco install git -and \
+  rmdir /q /s C:\chococache -and \
+  del C:\chocolatey_install.ps1 -and \
+  Write-Output 'Chocolatey install complete -- closing out layer (this can take awhile)'
+  
 # Install Ruby + Devkit
 RUN powershell -Command \
   $ErrorActionPreference = "Stop"; \
@@ -28,7 +30,7 @@ RUN powershell -Command \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
   (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.3.3-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.3-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -Wait ; \
+  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/dir=C:\\ruby33' -Wait ; \
   Write-Output 'Cleaning up installation'; \
   Remove-Item c:\rubyinstaller-devkit-3.3.3-1-x64.exe -Force -ErrorAction SilentlyContinue; \
   Write-Output 'Closing out the layer (this can take awhile)';        

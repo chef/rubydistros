@@ -32,36 +32,15 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
 # Install Ruby + Devkit
 # Download, install, and clean up Ruby + DevKit
 RUN powershell -Command \
-    #$ErrorActionPreference = 'Stop'; \
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-    $installerUrl = 'https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.3.3-1-x64.exe'; \
-    $installerPath = 'C:\\rubyinstaller-devkit-3.3.3-1-x64.exe'; \
-    $installDir = 'C:\\ruby33'; \
-    Write-Output 'Downloading Ruby + DevKit'; \
-    try { \
-        (New-Object System.Net.WebClient).DownloadFile($installerUrl, $installerPath); \
-        Write-Output 'Download completed successfully.'; \
-    } catch { \
-        Write-Error 'Failed to download Ruby + DevKit: $_'; \
-        exit 1; \
-    }; \
-    Write-Output 'Installing Ruby + DevKit'; \
-    try { \
-        Start-Process -FilePath $installerPath -ArgumentList '/verysilent /dir=C:\\ruby33' -Wait -NoNewWindow; \
-        Write-Output 'Installation completed successfully.'; \
-    } catch { \
-        Write-Error 'Failed to install Ruby + DevKit: $_'; \
-        exit 1; \
-    }; \
-    Write-Output 'Cleaning up installation files'; \
-    try { \
-        Remove-Item -Path $installerPath -Force; \
-        Write-Output 'Cleanup completed successfully.'; \
-    } catch { \
-        Write-Error 'Failed to clean up installation files: $_'; \
-        exit 1; \
-    }; \
-    Write-Output 'Setup completed. Closing out the layer.'
+  $ErrorActionPreference = 'Stop'; \
+  Write-Output 'Downloading Ruby + DevKit'; \
+  [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-devkit-3.1.1-1-x64.exe', 'c:\\rubyinstaller-devkit-3.1.1-1-x64.exe'); \
+  Write-Output 'Installing Ruby + DevKit'; \
+  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/verysilent /dir=C:\\ruby33' -NoNewWindow ; \
+  Write-Output 'Cleaning up installation'; \
+  Remove-Item c:\rubyinstaller-devkit-3.3.3-1-x64.exe -Force; \
+  Write-Output 'Closing out the layer (this can take awhile)';
   
   
     

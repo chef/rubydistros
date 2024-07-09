@@ -7,13 +7,20 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Download and install .NET Framework 4.8
-# FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
-# ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
-# RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8-windowsservercore-ltsc2019
+ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-allos-enu.exe
+RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
-FROM chocolatey/choco:latest-windows
-RUN choco install au --yes
-CMD PowerShell.exe
+# Install Chocolatey (and essentials)
+RUN powershell -Command "Start-Process powershell -ArgumentList 'Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile install.ps1'" \
+  powershell -ExecutionPolicy Bypass -File install.ps1 -and \
+  C:\ProgramData\Chocolatey\bin\refreshenv -and \
+  choco feature enable -n=allowGlobalConfirmation -and \
+  choco config set cacheLocation C:\chococache -and \
+  choco upgrade chocolatey -and \
+  choco install git -and \
+  rmdir /q /s C:\chococache -and \
+  echo "Chocolatey install complete -- closing out layer"
 
 # Install Ruby and Bundler using Chocolatey
 #RUN cmd.exe /c choco install ruby -y

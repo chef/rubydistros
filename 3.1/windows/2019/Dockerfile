@@ -7,9 +7,8 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 
 # Install Chocolatey (and essentials)
-ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1
-RUN powershell -File C:\chocolatey_install.ps1
-RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
+RUN powershell -Command "Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && \
+  C:\ProgramData\Chocolatey\bin\refreshenv && \
   choco feature enable -n=allowGlobalConfirmation && \
   choco config set cacheLocation C:\chococache && \
   choco upgrade chocolatey && \

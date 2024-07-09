@@ -12,7 +12,7 @@ ADD https://go.microsoft.com/fwlink/?linkid=863265 /ndp472-kb4054530-x86-x64-all
 RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
-RUN powershell -Command "Invoke-WebRequest -Uri 'https://chocolatey.org/install.ps1' -OutFile 'install.ps1'"\
+RUN powershell -Command "Start-Process powershell -ArgumentList 'Invoke-WebRequest -Uri https://chocolatey.org/install.ps1 -OutFile install.ps1'" \
   powershell -ExecutionPolicy Bypass -File install.ps1 -and \
   C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \

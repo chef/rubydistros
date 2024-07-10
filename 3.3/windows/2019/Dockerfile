@@ -19,6 +19,7 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco config set cacheLocation C:\chococache -and \
   choco upgrade chocolatey -and \
   choco install git.install -and \
+  choco install msys2 -and \
   rmdir /q /s C:\chococache -and \
   del C:\chocolatey_install.ps1 -and \
   Write-Output "Chocolatey install complete -- closing out layer"

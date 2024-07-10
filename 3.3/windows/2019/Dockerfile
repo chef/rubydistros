@@ -15,7 +15,7 @@ RUN powershell \
     
 
     # Install base ruby and initialize Devkit
-Start-Process "C:\rubyinstaller.exe" -ArgumentList "/verysilent /log=c:\install.log" -Wait
+RUN Start-Process -FilePath "C:\rubyinstaller.exe" -ArgumentList "/verysilent /log=c:\install.log" -Wait
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version

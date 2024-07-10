@@ -14,7 +14,7 @@ RUN powershell \
     Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
     
 # Install git
-RUN cmd /c git-installer.exe /verysilent
+RUN cmd /c git-installer.exe
 RUN git --version
 
     # Install base ruby and initialize Devkit

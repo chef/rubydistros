@@ -9,7 +9,7 @@ RUN powershell \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
 # Install base ruby and initialize Devkit
-RUN powershell -Command Start-Process c:\Users\Administrator\rubyinstaller.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait
+RUN powershell -Command Start-Process c:\rubyinstaller.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version

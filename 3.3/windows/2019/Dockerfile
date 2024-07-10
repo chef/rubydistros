@@ -13,17 +13,17 @@ RUN powershell \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
     
-# Install git
-RUN cmd /c git-installer.exe
-RUN git --version
 
     # Install base ruby and initialize Devkit
-RUN cmd /c rubyinstaller.exe /verysilent
+Start-Process -FilePath "C:\rubyinstaller.exe" -ArgumentList "/verysilent /log=c:\install.log" -Wait
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version
 RUN ridk install 1
 
+# Install git
+RUN cmd /c git-installer.exe
+RUN git --version
 
 
 # Install Inno Setup

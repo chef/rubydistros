@@ -1,28 +1,51 @@
-# Use a Windows Server Core base image
 FROM mcr.microsoft.com/windows/servercore:ltsc2019
 
-# Set shell to PowerShell
-SHELL ["powershell", "-Command"]
+# Download base ruby
+RUN powershell \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Invoke-WebRequest https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-3.3.3-1-x64.exe -Outfile rubyinstaller.exe
+# Download git
+RUN powershell \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
+# Download Inno Setup    
+RUN powershell \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
+    
 
-# Download and install Ruby 3.3.1
-RUN Invoke-WebRequest -Uri https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz -OutFile C:\ruby.tar.gz -UseBasicParsing; \
-    mkdir C:\ruby; \
-    tar -xf C:\ruby.tar.gz -C C:\ruby --strip-components=1; \
-    Remove-Item C:\ruby.tar.gz -Force
+    # Install base ruby and initialize Devkit
+RUN Start-Process  "C:\rubyinstaller.exe" -ArgumentList "/verysilent /log=c:\install.log" -Wait
+RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
+    $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
+RUN ruby --version
+RUN ridk install 1
 
-# Add Ruby to PATH
-RUN setx /M PATH $($Env:PATH + ';C:\ruby\bin')
+# Install git
+RUN cmd /c git-installer.exe
+RUN git --version
 
-# Show installed Ruby version
-#RUN ruby --version
 
-# Download and install Ruby DevKit
-RUN Invoke-WebRequest -Uri https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-3.3.3-1-x64.exe -OutFile C:\devkit.zip; \
-    Expand-Archive -Path C:\devkit.zip -DestinationPath C:\devkit; \
-    Remove-Item C:\devkit.zip -Force; \
-    C:\devkit\devkitvars.bat
+# Install Inno Setup
+RUN cmd /c inno-setup.exe /verysilent /allusers
+RUN powershell [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';c:/Program Files (x86)/Inno Setup 6', 'Machine')
+RUN iscc --version || (exit 0)
 
-# Configure Ruby DevKit
-RUN cd C:\ruby && \
-    ruby dk.rb init && \
-    ruby dk.rb install
+RUN ridk enable
+
+# pacman fails with EXDEV error after download when /var/cache/pkg is bind mounted into the container.
+# Therefore mount /var/cache directory an let pacman create the pkg directory.
+RUN ridk exec rm -r c:/ruby24-x64/msys64/var/cache/pacman/pkg
+
+# Import the git repository and unpack it in /build
+WORKDIR /build
+COPY gitrepo .git/
+RUN dir
+RUN git checkout -f
+
+# Install required rubygems
+RUN gem install bundler --no-doc
+RUN bundle
+
+WORKDIR /build/docker
+CMD rake

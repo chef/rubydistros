@@ -13,7 +13,7 @@ RUN powershell -Command Start-Process c:\rubyinstaller.exe -ArgumentList '/verys
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version
-RUN ridk install 1
+#RUN ridk install 1
 
 # Download git
 RUN powershell \

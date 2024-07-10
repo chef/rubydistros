@@ -9,12 +9,12 @@ RUN Invoke-WebRequest -Uri https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.t
     mkdir C:\ruby; \
     tar -xf C:\ruby.tar.gz -C C:\ruby --strip-components=1; \
     Remove-Item C:\ruby.tar.gz -Force
-    
+
 # Add Ruby to PATH
 RUN setx /M PATH $($Env:PATH + ';C:\ruby\bin')
 
 # Show installed Ruby version
-RUN ruby --version
+#RUN ruby --version
 
 # Download and install Ruby DevKit
 RUN Invoke-WebRequest -Uri https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-3.3.3-1-x64.exe -OutFile C:\devkit.zip; \

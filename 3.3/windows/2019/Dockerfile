@@ -14,7 +14,7 @@ RUN powershell \
     Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
     
 # Install base ruby and initialize Devkit
-RUN (cmd /c rubyinstaller.exe /log=install.log) || (powershell get-content c:/install.log)
+RUN cmd /c rubyinstaller.exe /verysilent
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version

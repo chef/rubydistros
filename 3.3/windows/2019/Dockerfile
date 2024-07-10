@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM microsoft/windowsservercore
 # FROM microsoft/nanoserver
 
 # Download base ruby

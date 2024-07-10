@@ -4,22 +4,21 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 RUN powershell \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     Invoke-WebRequest https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-3.3.3-1-x64.exe -Outfile rubyinstaller.exe
-# Download git
-RUN powershell \
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-    Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
 # Download Inno Setup    
 RUN powershell \
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
     Invoke-WebRequest http://www.jrsoftware.org/download.php/is.exe -Outfile inno-setup.exe
-    
-
-    # Install base ruby and initialize Devkit
-RUN Start-Process  "C:\rubyinstaller.exe" -ArgumentList "/verysilent /log=c:\install.log" -Wait
+# Install base ruby and initialize Devkit
+RUN powershell -Command Start-Process c:\Users\Administrator\rubyinstaller.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
     $env:RUBYOPT = [Environment]::GetEnvironmentVariable('RUBYOPT','Machine')
 RUN ruby --version
 RUN ridk install 1
+
+# Download git
+RUN powershell \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
 
 # Install git
 RUN cmd /c git-installer.exe

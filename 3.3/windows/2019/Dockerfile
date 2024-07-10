@@ -4,12 +4,12 @@ FROM mcr.microsoft.com/windows/servercore:ltsc2019
 # Set shell to PowerShell
 SHELL ["powershell", "-Command"]
 
-# Download and install Ruby
-RUN Invoke-WebRequest -Uri https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz -OutFile C:\ruby.zip; \
-    Expand-Archive -Path C:\ruby.zip -DestinationPath C:\; \
-    Remove-Item C:\ruby.zip -Force; \
-    Move-Item -Path C:\ruby-* C:\ruby
-
+# Download and install Ruby 3.3.1
+RUN Invoke-WebRequest -Uri https://cache.ruby-lang.org/pub/ruby/3.3/ruby-3.3.1.tar.gz -OutFile C:\ruby.tar.gz -UseBasicParsing; \
+    mkdir C:\ruby; \
+    tar -xf C:\ruby.tar.gz -C C:\ruby --strip-components=1; \
+    Remove-Item C:\ruby.tar.gz -Force
+    
 # Add Ruby to PATH
 RUN setx /M PATH $($Env:PATH + ';C:\ruby\bin')
 

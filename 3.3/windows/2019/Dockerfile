@@ -28,7 +28,7 @@ RUN powershell \
     Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
 
 # Install git
-RUN cmd c:\git-installer.exe /verysilent
+RUN cmd c:\git-installer.exe
 RUN git --version
 
 

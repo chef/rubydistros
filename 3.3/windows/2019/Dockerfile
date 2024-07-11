@@ -14,7 +14,7 @@ RUN powershell \
 RUN cmd /c inno-setup.exe /verysilent /allusers
 RUN powershell [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';c:/Program Files (x86)/Inno Setup 6', 'Machine')
 RUN iscc --version || (exit 0)
-    
+
 # Install base ruby and initialize Devkit
 RUN powershell -Command Start-Process c:\rubyinstaller.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait
 RUN powershell $env:PATH = [Environment]::GetEnvironmentVariable('PATH','Machine'); \
@@ -28,7 +28,7 @@ RUN powershell \
     Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
 
 # Install git
-RUN powershell -Command Start-Process c:\ git-installer.exe '/verysilent' -Wait
+RUN powershell -Command Start-Process c:\ git-installer.exe -Wait
 RUN git --version
 
 

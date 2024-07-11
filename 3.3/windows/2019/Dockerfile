@@ -40,7 +40,4 @@ RUN powershell -Command \
 RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe', 'c:\\msys2-x86_64-20240507.exe'); \
    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-   Remove-Item 'C:\msys2-x86_64-20240507.exe'
-   
-RUN ridk install 1 2 3
-RUN ruby --version   
+   Remove-Item 'C:\msys2-x86_64-20240507.exe'  

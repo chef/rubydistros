@@ -18,10 +18,12 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \
   choco config set cacheLocation C:\chococache -and \
   choco upgrade chocolatey -and \
-  choco install git.install -and \
   rmdir /q /s C:\chococache -and \
   del C:\chocolatey_install.ps1 -and \
   Write-Output "Chocolatey install complete -- closing out layer"
+
+RUN choco install git.install
+RUN git --version  
 
 # Install Ruby + Devkit
 RUN powershell -Command \
@@ -41,7 +43,3 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
    Remove-Item 'C:\msys2-x86_64-20240507.exe'  
-
-RUN git --version
-RUN ruby --version
-RUN bunlder --version   

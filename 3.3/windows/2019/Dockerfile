@@ -23,13 +23,14 @@ RUN ruby --version
 #RUN ridk install 1
 
 # Download git
-RUN Invoke-WebRequest 'https://github.com/git-for-windows/git/releases/download/v2.12.2.windows.2/MinGit-2.12.2.2-64-bit.zip' -OutFile MinGit.zip
-RUN Expand-Archive c:\MinGit.zip -DestinationPath c:\MinGit; \
+RUN powershell \
+    Invoke-WebRequest 'https://github.com/git-for-windows/git/releases/download/v2.12.2.windows.2/MinGit-2.12.2.2-64-bit.zip' -OutFile MinGit.zip
+    Expand-Archive c:\MinGit.zip -DestinationPath c:\MinGit; \
 $env:PATH = $env:PATH + ';C:\MinGit\cmd\;C:\MinGit\cmd'; \
 Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
 
 # Install git
-RUN cmd c:\git-installer.exe
+
 RUN git --version
 
 

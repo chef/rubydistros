@@ -41,3 +41,7 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
    Remove-Item 'C:\msys2-x86_64-20240507.exe'  
+
+RUN git --version
+RUN ruby --version
+RUN bunlder --version   

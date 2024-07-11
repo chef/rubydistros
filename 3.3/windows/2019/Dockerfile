@@ -24,6 +24,7 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
 
 RUN choco install git.install -y
 RUN git --version  
+RUN setx PATH "%PATH%;C:\Program Files (x86)\Git\bin;C:\Program Files (x86)\Git\cmd"
 
 # Install Ruby + Devkit
 RUN powershell -Command \

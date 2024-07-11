@@ -29,7 +29,7 @@ RUN powershell \
 
 # Install git
 RUN cmd c:\git-installer.exe
-RUN git --version
+#RUN git --version
 
 
 RUN ridk enable
@@ -39,10 +39,10 @@ RUN ridk enable
 RUN ridk exec rm -r c:/ruby24-x64/msys64/var/cache/pacman/pkg
 
 # Import the git repository and unpack it in /build
-WORKDIR /build
-COPY gitrepo .git/
-RUN dir
-RUN git checkout -f
+#WORKDIR /build
+#COPY gitrepo .git/
+#RUN dir
+#RUN git checkout -f
 
 # Install required rubygems
 RUN gem install bundler --no-doc

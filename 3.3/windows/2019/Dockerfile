@@ -24,13 +24,11 @@ RUN ruby --version
 
 # Download git
 RUN powershell \
-    Invoke-WebRequest 'https://github.com/git-for-windows/git/releases/download/v2.12.2.windows.2/MinGit-2.12.2.2-64-bit.zip' -OutFile MinGit.zip
-    Expand-Archive c:\MinGit.zip -DestinationPath c:\MinGit; \
-$env:PATH = $env:PATH + ';C:\MinGit\cmd\;C:\MinGit\cmd'; \
-Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\' -Name Path -Value $env:PATH
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.45.2.windows.1/Git-2.45.2-32-bit.exe  -Outfile git-installer.exe
 
 # Install git
-
+RUN cmd c:\git-installer.exe
 RUN git --version
 
 

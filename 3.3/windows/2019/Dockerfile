@@ -31,7 +31,7 @@ RUN powershell \
 RUN cmd c:\ git-installer.exe /verysilent
 #RUN git --version
 
-
+RUN ridk install 1 2 3
 RUN ridk enable
 
 # pacman fails with EXDEV error after download when /var/cache/pkg is bind mounted into the container.

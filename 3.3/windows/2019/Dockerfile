@@ -60,5 +60,5 @@ RUN git checkout -f
 RUN gem install bundler --no-doc
 RUN bundle
    
-   WORKDIR /build/docker
-   CMD rake
+WORKDIR /build/docker
+CMD rake

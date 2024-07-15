@@ -42,4 +42,23 @@ RUN powershell -Command \
 RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe', 'c:\\msys2-x86_64-20240507.exe'); \
    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-   Remove-Item 'C:\msys2-x86_64-20240507.exe'  
+   Remove-Item 'C:\msys2-x86_64-20240507.exe'
+
+RUN ridk enable
+
+   # pacman fails with EXDEV error after download when /var/cache/pkg is bind mounted into the container.
+   # Therefore mount /var/cache directory an let pacman create the pkg directory.
+RUN ridk exec rm -r c:/ruby24-x64/msys64/var/cache/pacman/pkg
+   
+   # Import the git repository and unpack it in /build
+WORKDIR /build
+COPY gitrepo .git/
+RUN dir
+RUN git checkout -f
+   
+   # Install required rubygems
+RUN gem install bundler --no-doc
+RUN bundle
+   
+   WORKDIR /build/docker
+   CMD rake

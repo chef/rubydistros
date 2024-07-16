@@ -53,14 +53,11 @@ RUN ridk exec pacman -Syu --noconfirm \
 # RUN ridk exec rm -r c:/msys2-x86_64-20240507/var/cache/pacman/pkg
    
    # Import the git repository and unpack it in /build
-WORKDIR /build
-COPY gitrepo .git/
-RUN dir
-RUN git checkout -f
+#WORKDIR /build
+#COPY gitrepo .git/
+#RUN dir
+#RUN git checkout -f
    
    # Install required rubygems
 RUN gem install bundler --no-doc
 RUN bundle
-   
-WORKDIR /build/docker
-CMD rake

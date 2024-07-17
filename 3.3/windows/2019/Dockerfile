@@ -60,5 +60,3 @@ RUN ridk exec pacman -Syu --noconfirm \
    # Install required rubygems
 #RUN gem install bundler --no-doc
 #RUN bundle
-
-RUN ridk install 1 2 3

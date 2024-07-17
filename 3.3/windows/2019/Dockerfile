@@ -59,5 +59,5 @@ RUN ridk exec pacman -Syu --noconfirm \
 #RUN git checkout -f
    
    # Install required rubygems
-RUN gem install bundler --no-doc
+#RUN gem install bundler --no-doc
 RUN bundle

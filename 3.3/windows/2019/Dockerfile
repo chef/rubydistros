@@ -45,7 +45,7 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
    Remove-Item 'C:\msys2-x86_64-20240507.exe'
 RUN ridk enable
 #RUN ridk exec rm -r C:\msys2-x86_64-20240507.exe/var/cache/pacman/pkg
-RUN ridk exec pacman -Syu --noconfirm
+RUN ridk exec pacman -Syu --noconfirm \
 
    # pacman fails with EXDEV error after download when /var/cache/pkg is bind mounted into the container.
    # Therefore mount /var/cache directory an let pacman create the pkg directory.

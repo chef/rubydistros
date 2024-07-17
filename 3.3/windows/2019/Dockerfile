@@ -43,10 +43,10 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
    Remove-Item 'C:\msys2-x86_64-20240507.exe'
-
+RUN ridk install 1 2 3
 RUN ridk enable
 #RUN ridk exec rm -r C:\msys2-x86_64-20240507.exe/var/cache/pacman/pkg
-RUN ridk exec pacman -Syu --noconfirm
+RUN ridk exec pacman -Syu --noconfirm -y
 
    # pacman fails with EXDEV error after download when /var/cache/pkg is bind mounted into the container.
    # Therefore mount /var/cache directory an let pacman create the pkg directory.
@@ -61,3 +61,5 @@ RUN ridk exec pacman -Syu --noconfirm
    # Install required rubygems
 #RUN gem install bundler --no-doc
 #RUN bundle
+
+RUN ridk install 1 2 3

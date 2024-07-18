@@ -22,7 +22,7 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   del C:\chocolatey_install.ps1 -and \
   Write-Output "Chocolatey install complete -- closing out layer"
 
-RUN choco install git.install -y
+RUN choco install git.install -version 2.35.1 -y
 RUN git --version  
 
 # Install Ruby + Devkit

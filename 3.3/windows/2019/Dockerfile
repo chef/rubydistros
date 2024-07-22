@@ -23,6 +23,8 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   Write-Output "Chocolatey install complete -- closing out layer"
 #install git
 RUN choco install git.install -y
+#from the versions which are >2.35 requires Strict repository ownership checks hence we are doing this step
+#can found more on here https://github.blog/2022-04-18-highlights-from-git-2-36/#stricter-repository-ownership-checks
 RUN git config --system --add safe.directory '*'
 RUN git --version  
  

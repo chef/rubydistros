@@ -47,3 +47,4 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
 #Install MSYS2 and MINGW development toolchain and enable it 
 RUN ridk install 3
 RUN ridk enable
+RUN git --version

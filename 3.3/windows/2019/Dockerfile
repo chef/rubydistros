@@ -17,13 +17,14 @@ RUN powershell -File C:\chocolatey_install.ps1
 RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   choco feature enable -n=allowGlobalConfirmation -and \
   choco config set cacheLocation C:\chococache -and \
-  choco install git.install -y -and \
-  git config --system --add safe.directory '*' -and \
-  git --version -and \
   choco upgrade chocolatey -and \
   rmdir /q /s C:\chococache -and \
   del C:\chocolatey_install.ps1 -and \
   Write-Output "Chocolatey install complete -- closing out layer"
+#install git
+RUN choco install git.install -y
+RUN git config --system --add safe.directory '*'
+RUN git --version  
  
 # Install Ruby + Devkit
 RUN powershell -Command \
@@ -47,4 +48,3 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
 #Install MSYS2 and MINGW development toolchain and enable it 
 RUN ridk install 3
 RUN ridk enable
-RUN git --version

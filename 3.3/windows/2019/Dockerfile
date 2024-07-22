@@ -24,11 +24,7 @@ RUN C:\ProgramData\Chocolatey\bin\refreshenv -and \
   rmdir /q /s C:\chococache -and \
   del C:\chocolatey_install.ps1 -and \
   Write-Output "Chocolatey install complete -- closing out layer"
-
-# RUN choco install git.install -y
-# RUN git config --system --add safe.directory '*'
-# RUN git --version  
-
+ 
 # Install Ruby + Devkit
 RUN powershell -Command \
   $ErrorActionPreference = 'Stop'; \
@@ -48,6 +44,6 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
    Remove-Item 'C:\msys2-x86_64-20240507.exe'
 
-#install msys2 development toolchains and enable it 
+#Install MSYS2 and MINGW development toolchain and enable it 
 RUN ridk install 3
 RUN ridk enable

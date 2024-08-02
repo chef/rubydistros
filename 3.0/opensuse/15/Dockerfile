@@ -75,7 +75,6 @@ RUN set -ex \
 	&& rm -r /usr/src/ruby \
 # rough smoke test
 RUN ruby --version && gem --version && bundle --version
-RUN ruby -e "require 'openssl'"
 
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps

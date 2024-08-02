@@ -70,7 +70,7 @@ RUN set -ex \
 	\
 	&& dnf remove -y ruby \
 	&& cd / \
-#	&& rm -r /usr/src/ruby \
+	&& rm -r /usr/src/ruby \
 # rough smoke test
 	&& ruby --version && gem --version && bundle --version
 

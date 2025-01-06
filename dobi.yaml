@@ -230,6 +230,24 @@ image=3_1-ubuntu-22_04:
   tags:
     - '3.1'
 
+image=3_2-ubuntu-20_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
+  context: 3.2/ubuntu/20.04
+  tags:
+    - '3.2'
+
+image=3_2-ubuntu-22_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
+  context: 3.2/ubuntu/22.04
+  tags:
+    - '3.2'
+
+image=3_2-ubuntu-24_10:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-24.10'
+  context: 3.2/ubuntu/24.10
+  tags:
+    - '3.2'
+
 # Windows
 image=2_6-windows-2019:
   image: '{env.IMAGE_REGISTRY}/windows-2019'

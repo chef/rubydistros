@@ -12,7 +12,7 @@ steps:
 - id: build-and-push-on-windows-2019-server-rubydistros-dockerhub
   label: ":docker::windows: build-and-push-rubydistros-dockerhub"
   commands:
-    - "docker build . -f 3.4.2/windows/2019/Dockerfile -t windows-2019:3.4.2"
+    - "docker build . -f 3.4/windows/2019/Dockerfile -t windows-2019:3.4.2"
     - "docker tag windows-2019:3.4.2 docker.io/rubydistros/windows-2019:3.4.2"
     - "docker tag windows-2019:3.4.2 docker.io/rubydistros/windows-2019:latest"
     - "docker push docker.io/rubydistros/windows-2019:3.4.2"

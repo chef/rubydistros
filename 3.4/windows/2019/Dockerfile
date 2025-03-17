@@ -28,7 +28,7 @@ RUN choco install git.install -y
 RUN git config --system --add safe.directory '*'
 RUN git --version  
 
-Install Ruby + Devkit
+# Install Ruby + Devkit
 RUN $ErrorActionPreference = 'Stop'; \
   Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \

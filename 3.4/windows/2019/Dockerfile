@@ -42,10 +42,10 @@ RUN $ErrorActionPreference = 'Stop'; \
   # Download MSYS2 dev kit, extract it and add to the PATH variable
 
 RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\\msys2-x86_64-20250221.exe'); \
-.\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
-[Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-Remove-Item 'C:\msys2-x86_64-20250221.exe'
+    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
+    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
+    Remove-Item 'C:\msys2-x86_64-20250221.exe'
 
 #Install MSYS2 and MINGW development toolchain and enable it 
-# RUN ridk install 3
-# RUN ridk enable
+RUN ridk install 3
+RUN ridk enable

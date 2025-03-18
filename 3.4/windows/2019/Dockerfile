@@ -41,26 +41,24 @@ RUN $ErrorActionPreference = 'Stop'; \
 
   # Download MSYS2 dev kit, extract it and add to the PATH variable
 
-# RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\\msys2-x86_64-20250221.exe'); \
-#     .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
-#     [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-#     Remove-Item 'C:\msys2-x86_64-20250221.exe'
-
 RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\msys2-x86_64-20250221.exe'); \
     c:\msys2-x86_64-20250221.exe in --confirm-command --accept-messages --root C:\msys2 ; \
     [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
     Remove-Item 'C:\msys2-x86_64-20250221.exe'
 
-ENV PATH="C:\msys2;${PATH}"
-# RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe', 'c:\\msys2-x86_64-20240507.exe'); \
-#    .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
-#    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-#    Remove-Item 'C:\msys2-x86_64-20240507.exe'
+# ENV PATH="C:\msys2;${PATH}"
 
-#Install MSYS2 and MINGW development toolchain and enable it 
-RUN ridk install 3
-RUN ridk enable
+# #Install MSYS2 and MINGW development toolchain and enable it 
+# RUN ridk install 3
+# RUN ridk enable
 
-#Install MSYS2 and MINGW development toolchain and enable it 
-RUN ridk install 3
-RUN ridk enable
+# Add MSYS2 binaries to PATH
+ENV PATH="C:\\msys2\\usr\\bin;C:\\msys2\\mingw64\\bin;${PATH}"
+
+# Install MSYS2 and MINGW development toolchain
+RUN powershell -Command " \
+    ridk install 3 --no-interactive"
+
+# Enable MSYS2 environment
+RUN powershell -Command " \
+    ridk enable"

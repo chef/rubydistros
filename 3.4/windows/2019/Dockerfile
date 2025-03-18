@@ -38,28 +38,34 @@ RUN $ErrorActionPreference = 'Stop'; \
   Write-Output 'Cleaning up installation'; \
   Remove-Item c:\rubyinstaller-devkit-3.4.2-1-x64.exe -Force; \
   [Environment]::SetEnvironmentVariable('PATH', 'C:\ruby34\bin;' + $env:PATH, [EnvironmentVariableTarget]::Machine); \
+  $env:PATH = 'C:\ruby34\bin;' + $env:PATH; \
+  Write-Output 'Verifying Ruby installation'; \
+  ruby --version; \
+  gem --version; \
   Write-Output 'Closing out the layer';
 
-  # Download MSYS2 dev kit, extract it and add to the PATH variable
+# Download MSYS2 manually and install required components
+RUN powershell -Command " \
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
+    (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\msys2-installer.exe'); \
+    Start-Process c:\msys2-installer.exe -ArgumentList 'in --confirm-command --accept-messages --root C:\msys2' -Wait; \
+    Remove-Item c:\msys2-installer.exe -Force; \
+    [Environment]::SetEnvironmentVariable('PATH', 'C:\msys2\usr\bin;C:\msys2\mingw64\bin;' + $env:PATH, [EnvironmentVariableTarget]::Machine); \
+    $env:PATH = 'C:\msys2\usr\bin;C:\msys2\mingw64\bin;' + $env:PATH"
 
-RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\msys2-x86_64-20250221.exe'); \
-    c:\msys2-x86_64-20250221.exe in --confirm-command --accept-messages --root C:\msys2 ; \
-    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-    Remove-Item 'C:\msys2-x86_64-20250221.exe'
-
-# ENV PATH="C:\msys2;${PATH}"
-
-# #Install MSYS2 and MINGW development toolchain and enable it 
-# RUN ridk install 3
-# RUN ridk enable
-
-# Add MSYS2 and Ruby binaries to PATH
+# Add MSYS2 and Ruby to PATH for subsequent commands
 ENV PATH="C:\\msys2\\usr\\bin;C:\\msys2\\mingw64\\bin;C:\\ruby34\\bin;${PATH}"
 
-# Install MSYS2 and MINGW development toolchain
+# Install MSYS2 development packages manually
 RUN powershell -Command " \
-    C:\\ruby34\\bin\\ridk.cmd install 3 --no-interactive"
+    $env:PATH = 'C:\msys2\usr\bin;C:\msys2\mingw64\bin;C:\ruby34\bin;' + $env:PATH; \
+    pacman -Sy --noconfirm mingw-w64-x86_64-gcc make; \
+    gem install --platform=ruby bundler"
 
-# Enable MSYS2 environment
+# Verify installation
 RUN powershell -Command " \
-    C:\\ruby34\\bin\\ridk.cmd enable"
+    ruby -v; \
+    gem -v; \
+    gcc -v; \
+    make -v; \
+    bundler -v"

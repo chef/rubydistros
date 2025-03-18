@@ -37,6 +37,7 @@ RUN $ErrorActionPreference = 'Stop'; \
   Start-Process c:\rubyinstaller-devkit-3.4.2-1-x64.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby34' -Wait ; \
   Write-Output 'Cleaning up installation'; \
   Remove-Item c:\rubyinstaller-devkit-3.4.2-1-x64.exe -Force; \
+  [Environment]::SetEnvironmentVariable('PATH', 'C:\ruby34\bin;' + $env:PATH, [EnvironmentVariableTarget]::Machine); \
   Write-Output 'Closing out the layer';
 
   # Download MSYS2 dev kit, extract it and add to the PATH variable
@@ -52,13 +53,13 @@ RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://
 # RUN ridk install 3
 # RUN ridk enable
 
-# Add MSYS2 binaries to PATH
-ENV PATH="C:\\msys2\\usr\\bin;C:\\msys2\\mingw64\\bin;${PATH}"
+# Add MSYS2 and Ruby binaries to PATH
+ENV PATH="C:\\msys2\\usr\\bin;C:\\msys2\\mingw64\\bin;C:\\ruby34\\bin;${PATH}"
 
 # Install MSYS2 and MINGW development toolchain
 RUN powershell -Command " \
-    ridk install 3 --no-interactive"
+    C:\\ruby34\\bin\\ridk.cmd install 3 --no-interactive"
 
 # Enable MSYS2 environment
 RUN powershell -Command " \
-    ridk enable"
+    C:\\ruby34\\bin\\ridk.cmd enable"

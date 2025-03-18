@@ -13,18 +13,18 @@ RUN C:\ndp472-kb4054530-x86-x64-allos-enu.exe /quiet /install
 
 # Install Chocolatey (and essentials)
 ADD https://chocolatey.org/install.ps1 /chocolatey_install.ps1
-RUN powershell -File C:\chocolatey_install.ps1 && \
-    C:\ProgramData\Chocolatey\bin\refreshenv && \
-    choco feature enable -n=allowGlobalConfirmation && \
-    choco config set cacheLocation C:\chococache && \
-    choco upgrade chocolatey && \
-    rmdir /q /s C:\chococache && \
-    del C:\chocolatey_install.ps1 && \
+RUN powershell -File C:\chocolatey_install.ps1 -and \
+    C:\ProgramData\Chocolatey\bin\refreshenv -and \
+    choco feature enable -n=allowGlobalConfirmation -and \
+    choco config set cacheLocation C:\chococache -and \
+    choco upgrade chocolatey -and \
+    rmdir /q /s C:\chococache -and \
+    del C:\chocolatey_install.ps1 -and \
     Write-Output "Chocolatey install complete -- closing out layer"
 
 # Install git
-RUN choco install git.install -y && \
-    git config --system --add safe.directory '*' && \
+RUN choco install git.install -y -and \
+    git config --system --add safe.directory '*' -and \
     git --version
 
 # Install Ruby + Devkit
@@ -39,12 +39,12 @@ RUN $ErrorActionPreference = 'Stop'; \
     Write-Output 'Closing out the layer'
 
 # Download MSYS2 dev kit, extract it and add to the PATH variable
-RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\msys2-x86_64-20250221.exe') && \
-    c:\msys2-x86_64-20250221.exe in --confirm-command --accept-messages --root C:\msys2 && \
+RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2025-02-21/msys2-x86_64-20250221.exe', 'c:\msys2-x86_64-20250221.exe') -and \
+    c:\msys2-x86_64-20250221.exe in --confirm-command --accept-messages --root C:\msys2 -and \
     Remove-Item 'C:\msys2-x86_64-20250221.exe'
 
 ENV PATH="C:\msys2;${PATH}"
 
 # Install MSYS2 and MINGW development toolchain and enable it 
-RUN ridk install 3 && \
+RUN ridk install 3 -and \
     ridk enable

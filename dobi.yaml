@@ -1,11 +1,5 @@
 ---
 # Alma
-image=2_6-almalinux-8:
-  image: '{env.IMAGE_REGISTRY}/almalinux-8'
-  context: 2.6/almalinux/8
-  tags:
-    - '2.6'
-
 image=2_7-almalinux-8:
   image: '{env.IMAGE_REGISTRY}/almalinux-8'
   context: 2.7/almalinux/8
@@ -26,18 +20,6 @@ image=3_1-almalinux-8:
     - '3.1'
 
 # Centos
-image=2_6-centos-7:
-  image: '{env.IMAGE_REGISTRY}/centos-7'
-  context: 2.6/centos/7
-  tags:
-    - '2.6'
-
-image=2_6-centos-8:
-  image: '{env.IMAGE_REGISTRY}/centos-8'
-  context: 2.6/centos/8
-  tags:
-    - '2.6'
-
 image=2_7-centos-7:
   image: '{env.IMAGE_REGISTRY}/centos-7'
   context: 2.7/centos/7
@@ -77,27 +59,9 @@ image=3_1-centos-8:
     - '3.1'
 
 # Fedora
-image=2_6-fedora-22:
-  image: '{env.IMAGE_REGISTRY}/fedora-22'
-  context: 2.6/fedora/22
-  tags:
-    - '2.6'
-
-image=2_6-fedora-latest:
-  image: '{env.IMAGE_REGISTRY}/fedora-latest'
-  context: 2.6/fedora/latest
-  tags:
-    - '2.6'
-
 image=2_7-fedora-22:
   image: '{env.IMAGE_REGISTRY}/fedora-22'
   context: 2.7/fedora/22
-  tags:
-    - '2.7'
-
-image=2_7-fedora-latest:
-  image: '{env.IMAGE_REGISTRY}/fedora-latest'
-  context: 2.7/fedora/latest
   tags:
     - '2.7'
 
@@ -129,12 +93,6 @@ image=3_1-fedora-latest:
 
 
 # Opensuse
-image=2_6-opensuse-15:
-  image: '{env.IMAGE_REGISTRY}/opensuse-15'
-  context: 2.6/opensuse/15
-  tags:
-    - '2.6'
-
 image=2_7-opensuse-15:
   image: '{env.IMAGE_REGISTRY}/opensuse-15'
   context: 2.7/opensuse/15
@@ -155,24 +113,6 @@ image=3_1-opensuse-15:
     - '3.1'
 
 # Ubuntu
-image=2_6-ubuntu-18_04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
-  context: 2.6/ubuntu/18.04
-  tags:
-    - '2.6'
-
-image=2_6-ubuntu-20_04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
-  context: 2.6/ubuntu/20.04
-  tags:
-    - '2.6'
-
-image=2_6-ubuntu-22_04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
-  context: 2.6/ubuntu/22.04
-  tags:
-    - '2.6'
-
 image=2_7-ubuntu-18_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
   context: 2.7/ubuntu/18.04
@@ -182,12 +122,6 @@ image=2_7-ubuntu-18_04:
 image=2_7-ubuntu-20_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
   context: 2.7/ubuntu/20.04
-  tags:
-    - '2.7'
-
-image=2_7-ubuntu-22_04:
-  image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
-  context: 2.7/ubuntu/22.04
   tags:
     - '2.7'
 
@@ -231,15 +165,6 @@ image=3_1-ubuntu-22_04:
     - '3.1'
 
 # Windows
-image=2_6-windows-2019:
-  image: '{env.IMAGE_REGISTRY}/windows-2019'
-  context: 2.6/windows/2019
-  tags:
-    - '2.6'
-  annotations:
-    tags:
-      - expeditor:host-os=windows
-
 image=2_7-windows-2019:
   image: '{env.IMAGE_REGISTRY}/windows-2019'
   context: 2.7/windows/2019
@@ -258,6 +183,16 @@ image=3_0-windows-2019:
     tags:
       - expeditor:host-os=windows
 
+image=3_0-windows-2019-full:
+  image: '{env.IMAGE_REGISTRY}/windows-2019-full'
+  context: 3.0/windows/2019-full
+  tags:
+    - '3.0'
+    - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+
 image=3_1-windows-2019:
   image: '{env.IMAGE_REGISTRY}/windows-2019'
   context: 3.1/windows/2019
@@ -267,3 +202,15 @@ image=3_1-windows-2019:
   annotations:
     tags:
       - expeditor:host-os=windows
+
+image=3_1-windows-2019-full:
+  image: '{env.IMAGE_REGISTRY}/windows-2019-full'
+  context: 3.1/windows/2019-full
+  tags:
+    - '3.1'
+    - latest
+  annotations:
+    tags:
+      - expeditor:host-os=windows
+
+

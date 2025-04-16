@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/windows:ltsc2019
 
 ENV BUNDLE_SILENCE_ROOT_WARNING=true \
     GIT_DISCOVERY_ACROSS_FILESYSTEM=true
@@ -7,8 +7,10 @@ ENV BUNDLE_SILENCE_ROOT_WARNING=true \
 CMD ["powershell.exe", "-NoLogo", "-ExecutionPolicy", "Bypass"]
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
-ENV chocolateyVersion="1.4.0"
 
+RUN Set-ExecutionPolicy Bypass
+
+ENV chocolateyVersion="1.4.0"
 # Install Chocolatey (and essentials)
 RUN Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 

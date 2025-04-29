@@ -11,6 +11,14 @@ ENV RUBY_MAJOR 3.0
 ENV RUBY_VERSION 3.0.3
 ENV RUBY_DOWNLOAD_SHA256 88cc7f0f021f15c4cd62b1f922e3a401697f7943551fe45b1fdf4f2417a17a9c
 
+RUN zypper install -y wget
+
+RUN wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-${RUBY_VERSION}.tar.xz"
+RUN echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c -
+
+# need to downgrade openssl for ruby 3.0 default build
+RUN zypper rm -y openssl-3
+
 # some of ruby's build scripts are written in ruby
 # we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
@@ -26,8 +34,6 @@ RUN set -ex \
     ncurses-devel \
     readline-devel \
     zlib-devel \
-    libopenssl-devel \
-    wget \
     bison \
     patch \
     libtool \
@@ -35,12 +41,12 @@ RUN set -ex \
     curl \
     xz \
     which \
+    libopenssl-1_0_0-devel \
+    libopenssl1_0_0 \
+    openssl-1_0_0 \
     hostname \
 	' \
 	&& zypper install -y $BaseDeps ruby \
-	\
-	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-${RUBY_VERSION}.tar.xz" \
-	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
 	\
 	&& mkdir -p /usr/src/ruby \
 	&& tar -xJf ruby.tar.xz -C /usr/src/ruby --strip-components=1 \
@@ -68,7 +74,7 @@ RUN set -ex \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test
-	&& ruby --version && gem --version && bundle --version
+RUN ruby --version && gem --version && bundle --version
 
 # install things globally, for great justice
 # and don't create ".bundle" in all our apps

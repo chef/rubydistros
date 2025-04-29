@@ -1,4 +1,5 @@
-FROM fedora:latest
+# fedora:40 and later don't have openssl1.1 included, and ruby 3.0 requires openssl <3.0
+FROM fedora:39
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
@@ -10,6 +11,9 @@ RUN mkdir -p /usr/local/etc \
 ENV RUBY_MAJOR 3.0
 ENV RUBY_VERSION 3.0.3
 ENV RUBY_DOWNLOAD_SHA256 88cc7f0f021f15c4cd62b1f922e3a401697f7943551fe45b1fdf4f2417a17a9c
+
+# beyond fedora:35, openssl included is 3.x
+RUN dnf remove -y openssl
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built
@@ -27,7 +31,8 @@ RUN set -ex \
     libtool \
     make \
     net-tools \
-    openssl-devel \
+    openssl1.1-devel \
+    openssl1.1 \
     patch \
     readline-devel \
     util-linux \

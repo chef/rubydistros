@@ -15,5 +15,3 @@ subscriptions:
     actions:
     - trigger_pipeline:docker/build
     - trigger_pipeline:windows/build
-    only_if_modified:
-      - 3.3/windows/2019/Dockerfile

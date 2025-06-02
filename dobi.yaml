@@ -234,7 +234,8 @@ image=3_4-ubuntu-24_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-24.04'
   context: 3.4/ubuntu/24.04
   tags:
-    - '3.4'    
+    - '3.4'
+    - latest
 
 # Windows
 image=2_6-windows-2019:

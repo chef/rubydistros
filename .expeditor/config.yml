@@ -14,4 +14,4 @@ subscriptions:
   - workload: pull_request_merged:{{github_repo}}:{{release_branch}}:*
     actions:
     - trigger_pipeline:docker/build
-    - trigger_pipeline:windows/build
+    - trigger_pipeline:build-windows

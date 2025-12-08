@@ -14,7 +14,7 @@ steps:
   commands:
     - "docker build . -f 3.1.7/windows/2019/Dockerfile -t windows-2019:3.1.7"
     - "docker tag windows-2019:3.1.7 docker.io/rubydistros/windows-2019:3.1.7"
-  #  - "docker push docker.io/rubydistros/windows-2019:3.1.7"
+    - "docker push docker.io/rubydistros/windows-2019:3.1.7"
   agents:
     queue: docker-windows-2019
   plugins:

@@ -9,18 +9,6 @@ env:
   VERSION: 1.1.16
 
 steps:
-- id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-1
-  label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.1"
-  commands:
-    - "docker build . -f 3.1/windows/2019/Dockerfile -t windows-2019:3.1"
-    - "docker tag windows-2019:3.1 docker.io/rubydistros/windows-2019:3.1"
-    - "docker push docker.io/rubydistros/windows-2019:3.1"
-  agents:
-    queue: docker-windows-2019
-  plugins:
-    - docker-login#v2.1.0:
-        username: expeditor
-
 - id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-1-7
   label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.1-7"
   commands:
@@ -32,17 +20,4 @@ steps:
   plugins:
     - docker-login#v2.1.0:
         username: expeditor
-        
-- id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-4
-  label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.4"
-  commands:
-    - "docker build . -f 3.4/windows/2019/Dockerfile -t windows-2019:3.4"
-    - "docker tag windows-2019:3.4 docker.io/rubydistros/windows-2019:3.4"
-    - "docker tag windows-2019:3.4 docker.io/rubydistros/windows-2019:latest"
-    - "docker push docker.io/rubydistros/windows-2019:3.4"
-    - "docker push docker.io/rubydistros/windows-2019:latest"
-  agents:
-    queue: docker-windows-2019
-  plugins:
-    - docker-login#v2.1.0:
-        username: expeditor
+

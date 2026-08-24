@@ -33,13 +33,49 @@ steps:
     - docker-login#v2.1.0:
         username: expeditor
         
+- id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-2
+  label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.2"
+  commands:
+    - "docker build . -f 3.2/windows/2019/Dockerfile -t windows-2019:3.2"
+    - "docker tag windows-2019:3.2 docker.io/rubydistros/windows-2019:3.2"
+    - "docker push docker.io/rubydistros/windows-2019:3.2"
+  agents:
+    queue: docker-windows-2019
+  plugins:
+    - docker-login#v2.1.0:
+        username: expeditor
+
+- id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-3
+  label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.3"
+  commands:
+    - "docker build . -f 3.3/windows/2019/Dockerfile -t windows-2019:3.3"
+    - "docker tag windows-2019:3.3 docker.io/rubydistros/windows-2019:3.3"
+    - "docker push docker.io/rubydistros/windows-2019:3.3"
+  agents:
+    queue: docker-windows-2019
+  plugins:
+    - docker-login#v2.1.0:
+        username: expeditor
+
 - id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-3-4
   label: ":docker::windows: build-and-push-rubydistros-dockerhub-3.4"
   commands:
     - "docker build . -f 3.4/windows/2019/Dockerfile -t windows-2019:3.4"
     - "docker tag windows-2019:3.4 docker.io/rubydistros/windows-2019:3.4"
-    - "docker tag windows-2019:3.4 docker.io/rubydistros/windows-2019:latest"
     - "docker push docker.io/rubydistros/windows-2019:3.4"
+  agents:
+    queue: docker-windows-2019
+  plugins:
+    - docker-login#v2.1.0:
+        username: expeditor
+
+- id: build-and-push-on-windows-2019-server-rubydistros-dockerhub-4-0
+  label: ":docker::windows: build-and-push-rubydistros-dockerhub-4.0"
+  commands:
+    - "docker build . -f 4.0/windows/2019/Dockerfile -t windows-2019:4.0"
+    - "docker tag windows-2019:4.0 docker.io/rubydistros/windows-2019:4.0"
+    - "docker tag windows-2019:4.0 docker.io/rubydistros/windows-2019:latest"
+    - "docker push docker.io/rubydistros/windows-2019:4.0"
     - "docker push docker.io/rubydistros/windows-2019:latest"
   agents:
     queue: docker-windows-2019

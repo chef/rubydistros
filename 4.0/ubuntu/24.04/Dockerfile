@@ -1,4 +1,4 @@
-FROM opensuse/leap:15
+FROM ubuntu:24.04
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
@@ -7,37 +7,39 @@ RUN mkdir -p /usr/local/etc \
 		echo 'update: --no-document'; \
 	} >> /usr/local/etc/gemrc
 
-ENV RUBY_MAJOR 3.1
-ENV RUBY_VERSION 3.1.7
-ENV RUBY_DOWNLOAD_SHA256 658acc455b6bda87ac6cc1380e86552b9c1af87055e7a127589c5bf7ed80b035
+ENV RUBY_MAJOR 4.0
+ENV RUBY_VERSION 4.0.6
+ENV RUBY_DOWNLOAD_SHA256 9c9d121fe3314ea7c801e690b9de981d2b9d12d7849db99c27482468a541ba0a
 
 # some of ruby's build scripts are written in ruby
-# we purge system ruby later to make sure our final image uses what we just built
+#   we purge system ruby later to make sure our final image uses what we just built
 RUN set -ex \
-	\
-  && groupadd nobody -g 99 \
-  && useradd nobody -c Nobody -u 99 -g 99 -s /sbin/nologin \
+  && mkdir -p /etc/network/interfaces.d \
 	&& BaseDeps=' \
-    git-core \
-    gcc-c++ \
-    make \
-    automake \
-    libyaml-devel \
-    ncurses-devel \
-    readline-devel \
-    zlib-devel \
-    libopenssl-devel \
-    wget \
-    bison \
-    patch \
-    libtool \
-    automake \
-    curl \
-    xz \
-    which \
-    hostname \
+        git \
+        gcc \
+        autoconf \
+        bison \
+        build-essential \
+        libssl-dev \
+        libyaml-dev \
+        libreadline6-dev \
+        zlib1g-dev \
+        libncurses5-dev \
+        libffi-dev \
+        libgdbm6 \
+        libgdbm-dev \
+        make \
+        wget \
+        curl \
+        iproute2 \
+        net-tools \
+        tzdata \
+        locales \
 	' \
-	&& zypper install -y $BaseDeps ruby \
+	&& apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends $BaseDeps ruby \
+	&& rm -rf /var/lib/apt/lists/* \
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-${RUBY_VERSION}.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \
@@ -58,13 +60,15 @@ RUN set -ex \
 	&& mv file.c.new file.c \
 	\
 	&& autoconf \
+	&& gnuArch="$(dpkg-architecture --query DEB_BUILD_GNU_TYPE)" \
 	&& ./configure \
+		--build="$gnuArch" \
 		--disable-install-doc \
 		--enable-shared \
 	&& make -j "$(nproc)" \
 	&& make install \
 	\
-	&& zypper remove -y ruby \
+	&& apt-get purge -y --auto-remove ruby \
 	&& cd / \
 	&& rm -r /usr/src/ruby \
 # rough smoke test

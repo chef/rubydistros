@@ -31,5 +31,5 @@ jobs:
           set -euo pipefail
           for target in $(grep -oE '^image=[A-Za-z0-9_-]+' dobi.yaml | cut -d= -f2 | grep -v windows); do
             echo "--- building ${target}"
-            dobi "${target}=build"
+            dobi "${target}:build"
           done

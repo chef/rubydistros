@@ -8,8 +8,8 @@ RUN mkdir -p /usr/local/etc \
 	} >> /usr/local/etc/gemrc
 
 ENV RUBY_MAJOR 3.1
-ENV RUBY_VERSION 3.1.1
-ENV RUBY_DOWNLOAD_SHA256 7aefaa6b78b076515d272ec59c4616707a54fc9f2391239737d5f10af7a16caa
+ENV RUBY_VERSION 3.1.7
+ENV RUBY_DOWNLOAD_SHA256 658acc455b6bda87ac6cc1380e86552b9c1af87055e7a127589c5bf7ed80b035
 
 # some of ruby's build scripts are written in ruby
 # we purge system ruby later to make sure our final image uses what we just built

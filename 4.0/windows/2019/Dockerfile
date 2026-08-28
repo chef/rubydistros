@@ -32,11 +32,11 @@ RUN git --version
 RUN $ErrorActionPreference = 'Stop'; \
   Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.1.7-1/rubyinstaller-3.1.7-1-x64.exe', 'c:\\rubyinstaller-devkit-3.1.7-1-x64.exe'); \
+  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-4.0.6-1/rubyinstaller-4.0.6-1-x64.exe', 'c:\\rubyinstaller-devkit-4.0.6-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:\rubyinstaller-devkit-3.1.7-1-x64.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby31' -Wait ; \
+  Start-Process c:\rubyinstaller-devkit-4.0.6-1-x64.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby40' -Wait ; \
   Write-Output 'Cleaning up installation'; \
-  Remove-Item c:\rubyinstaller-devkit-3.1.7-1-x64.exe -Force; \
+  Remove-Item c:\rubyinstaller-devkit-4.0.6-1-x64.exe -Force; \
   Write-Output 'Closing out the layer';
 
 # Download MSYS2 dev kit, extract it and add to the PATH variable

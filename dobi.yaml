@@ -17,7 +17,6 @@ image=3_0-almalinux-8:
   context: 3.0/almalinux/8
   tags:
     - '3.0'
-    - latest
 
 image=3_1-almalinux-8:
   image: '{env.IMAGE_REGISTRY}/almalinux-8'
@@ -55,14 +54,12 @@ image=3_0-centos-7:
   context: 3.0/centos/7
   tags:
     - '3.0'
-    - latest
 
 image=3_0-centos-8:
   image: '{env.IMAGE_REGISTRY}/centos-8'
   context: 3.0/centos/8
   tags:
     - '3.0'
-    - latest
 
 image=3_1-centos-7:
   image: '{env.IMAGE_REGISTRY}/centos-7'
@@ -94,7 +91,6 @@ image=3_0-fedora-22:
   context: 3.0/fedora/22
   tags:
     - '3.0'
-    - latest
 
 image=3_1-fedora-22:
   image: '{env.IMAGE_REGISTRY}/fedora-22'
@@ -120,7 +116,6 @@ image=3_0-opensuse-15:
   context: 3.0/opensuse/15
   tags:
     - '3.0'
-    - latest
 
 image=3_1-opensuse-15:
   image: '{env.IMAGE_REGISTRY}/opensuse-15'
@@ -158,21 +153,18 @@ image=3_0-ubuntu-18_04:
   context: 3.0/ubuntu/18.04
   tags:
     - '3.0'
-    - latest
 
 image=3_0-ubuntu-20_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-20.04'
   context: 3.0/ubuntu/20.04
   tags:
     - '3.0'
-    - latest
 
 image=3_0-ubuntu-22_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-22.04'
   context: 3.0/ubuntu/22.04
   tags:
     - '3.0'
-    - latest
 
 image=3_1-ubuntu-18_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-18.04'
@@ -192,11 +184,23 @@ image=3_1-ubuntu-22_04:
   tags:
     - '3.1'
 
+image=3_2-ubuntu-24_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-24.04'
+  context: 3.2/ubuntu/24.04
+  tags:
+    - '3.2'
+
 image=3_4-ubuntu-24_04:
   image: '{env.IMAGE_REGISTRY}/ubuntu-24.04'
   context: 3.4/ubuntu/24.04
   tags:
     - '3.4'
+
+image=4_0-ubuntu-24_04:
+  image: '{env.IMAGE_REGISTRY}/ubuntu-24.04'
+  context: 4.0/ubuntu/24.04
+  tags:
+    - '4.0'
     - latest
 
 # Windows
@@ -232,7 +236,6 @@ image=3_1-windows-2019:
   context: 3.1/windows/2019
   tags:
     - '3.1'
-    - latest
   annotations:
     tags:
       - expeditor:host-os=windows

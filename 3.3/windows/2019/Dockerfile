@@ -32,19 +32,19 @@ RUN git --version
 RUN $ErrorActionPreference = 'Stop'; \
   Write-Output 'Downloading Ruby + DevKit'; \
   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; \
-  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.3-1/rubyinstaller-3.3.3-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.3-1-x64.exe'); \
+  (New-Object System.Net.WebClient).DownloadFile('https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.3.12-1/rubyinstaller-3.3.12-1-x64.exe', 'c:\\rubyinstaller-devkit-3.3.12-1-x64.exe'); \
   Write-Output 'Installing Ruby + DevKit'; \
-  Start-Process c:\rubyinstaller-devkit-3.3.3-1-x64.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait ; \
+  Start-Process c:\rubyinstaller-devkit-3.3.12-1-x64.exe -ArgumentList '/verysilent /allusers /dir=C:\\ruby33' -Wait ; \
   Write-Output 'Cleaning up installation'; \
-  Remove-Item c:\rubyinstaller-devkit-3.3.3-1-x64.exe -Force; \
+  Remove-Item c:\rubyinstaller-devkit-3.3.12-1-x64.exe -Force; \
   Write-Output 'Closing out the layer';
 
 # Download MSYS2 dev kit, extract it and add to the PATH variable
 
-RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2024-05-07/msys2-x86_64-20240507.exe', 'c:\\msys2-x86_64-20240507.exe'); \
-   .\msys2-x86_64-20240507.exe in --confirm-command --accept-messages --root C:\msys2 ; \
+RUN powershell -Command (New-Object System.Net.WebClient).DownloadFile('https://github.com/msys2/msys2-installer/releases/download/2026-06-11/msys2-x86_64-20260611.exe', 'c:\\msys2-x86_64-20260611.exe'); \
+   .\msys2-x86_64-20260611.exe in --confirm-command --accept-messages --root C:\msys2 ; \
    [Environment]::SetEnvironmentVariable('PATH', $env:PATH + ';C:\msys2', [EnvironmentVariableTarget]::Machine); \
-   Remove-Item 'C:\msys2-x86_64-20240507.exe'
+   Remove-Item 'C:\msys2-x86_64-20260611.exe'
 
 #Install MSYS2 and MINGW development toolchain and enable it 
 RUN ridk install 3

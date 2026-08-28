@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 # skip installing gem documentation
 RUN mkdir -p /usr/local/etc \
@@ -7,9 +7,9 @@ RUN mkdir -p /usr/local/etc \
 		echo 'update: --no-document'; \
 	} >> /usr/local/etc/gemrc
 
-ENV RUBY_MAJOR 3.0
-ENV RUBY_VERSION 3.0.7
-ENV RUBY_DOWNLOAD_SHA256 1748338373c4fad80129921080d904aca326e41bd9589b498aa5ee09fd575bab
+ENV RUBY_MAJOR 3.2
+ENV RUBY_VERSION 3.2.11
+ENV RUBY_DOWNLOAD_SHA256 c13aec0c206725d5d356acbae6e5fd8bffd92dc325aec14fd5dd7795d4b763d2
 
 # some of ruby's build scripts are written in ruby
 #   we purge system ruby later to make sure our final image uses what we just built

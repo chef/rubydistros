@@ -37,7 +37,7 @@ RUN set -ex \
     which \
     hostname \
 	' \
-	&& zypper install -y $BaseDeps ruby \
+	&& zypper install -y --allow-downgrade $BaseDeps ruby \
 	\
 	&& wget -O ruby.tar.xz "https://cache.ruby-lang.org/pub/ruby/$RUBY_MAJOR/ruby-${RUBY_VERSION}.tar.xz" \
 	&& echo "$RUBY_DOWNLOAD_SHA256 *ruby.tar.xz" | sha256sum -c - \

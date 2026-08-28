@@ -1,1 +1,6 @@
 image_registry: rubydistros
+env:
+  # ponytail: dobi's bundled Docker client defaults to API 1.25; agents
+  # running Docker Engine 29+ require >=1.44 and reject it. Pin the client
+  # version like chef/chef-workstation and chef/omnitruck already do.
+  DOCKER_API_VERSION: "1.44"

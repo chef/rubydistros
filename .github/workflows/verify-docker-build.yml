@@ -1,0 +1,35 @@
+---
+name: Verify Docker Build
+
+on:
+  pull_request:
+    paths:
+      - "**/Dockerfile"
+      - "dobi.yaml"
+      - ".github/workflows/verify-docker-build.yml"
+
+env:
+  IMAGE_REGISTRY: rubydistros
+  # ponytail: dobi's bundled Docker client defaults to API 1.25; GHA
+  # runners ship a newer Docker Engine that rejects it. Pin the client
+  # version like build.docker.yml already does.
+  DOCKER_API_VERSION: "1.44"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dobi
+        run: |
+          curl -sL https://github.com/dnephin/dobi/releases/download/v0.15.0/dobi-linux -o /usr/local/bin/dobi
+          chmod +x /usr/local/bin/dobi
+
+      - name: Build all linux images (no push)
+        run: |
+          set -euo pipefail
+          for target in $(grep -oE '^image=[A-Za-z0-9_-]+' dobi.yaml | cut -d= -f2 | grep -v windows); do
+            echo "--- building ${target}"
+            dobi "${target}=build"
+          done

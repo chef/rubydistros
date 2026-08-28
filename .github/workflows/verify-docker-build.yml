@@ -16,8 +16,27 @@ env:
   DOCKER_API_VERSION: "1.44"
 
 jobs:
-  build:
+  targets:
     runs-on: ubuntu-latest
+    outputs:
+      targets: ${{ steps.list.outputs.targets }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: list
+        name: List linux image targets
+        run: |
+          set -euo pipefail
+          targets=$(grep -oE '^image=[A-Za-z0-9_-]+' dobi.yaml | cut -d= -f2 | grep -v windows | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "targets=${targets}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: targets
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.targets.outputs.targets) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -26,10 +45,5 @@ jobs:
           curl -sL https://github.com/dnephin/dobi/releases/download/v0.15.0/dobi-linux -o /usr/local/bin/dobi
           chmod +x /usr/local/bin/dobi
 
-      - name: Build all linux images (no push)
-        run: |
-          set -euo pipefail
-          for target in $(grep -oE '^image=[A-Za-z0-9_-]+' dobi.yaml | cut -d= -f2 | grep -v windows); do
-            echo "--- building ${target}"
-            dobi "${target}:build"
-          done
+      - name: Build image (no push)
+        run: dobi "${{ matrix.target }}:build"
